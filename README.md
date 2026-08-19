@@ -12,17 +12,19 @@ docker compose up -d --build
 
 !NB Перед запуском создайте файлы переменных окружения с указаниями ниже.
 
-Backend
+**Backend**
 
 Основные настройки backend/.env
 
 DEBUG=[INTEGER] #Django settings
+
 SECRET_AUTH_KEY=[HEX]
+
 
 Опционально, можно изменить `SECRET_AUTH_KEY`, используемый при Bearer-аутентификации
 
 
-Архитектура - REST API. 
+**Архитектура** - REST API. 
 
 <pre>
 ┌───────────────────────────────────┐
@@ -81,7 +83,7 @@ SECRET_AUTH_KEY=[HEX]
 └───────────────────────────────────┘
 </pre>
 
-Frontend
+**Frontend**
 
 Архитектура - классический FSD с шестью слоями.
 
@@ -151,14 +153,18 @@ shared - утилиты, вспомогательные компонеты
 
 
 
-
 Основные настройки frontend/src/.env.development
 
 VITE_API_MODE=dev
+
 VITE_DOMAIN=localhost:8715
+
 VITE_API_HOST=http://${VITE_DOMAIN}
+
 VITE_API_URL=http://${VITE_DOMAIN}/api
+
 VITE_BASE_URL=/
 
 `VITE_DOMAIN` - домейн прокси-сервера, куда приходят запросы от клиента
+
 `VITE_BASE_URL` - домейн маршрутизатора, задаваемый для клиентских конечных точек
