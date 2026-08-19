@@ -1,0 +1,1 @@
+export { default as MessagePanel } from './ui/element/index.vue'

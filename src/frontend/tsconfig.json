@@ -1,0 +1,43 @@
+{
+    "compilerOptions": {
+        "noEmit": true,
+        "noImplicitAny": false,
+        "sourceMap": true,
+        "allowSyntheticDefaultImports": true,
+        "declaration": false,
+        "experimentalDecorators": true,
+        "strictPropertyInitialization": false,
+        "allowJs": true,
+
+
+        "target": "es2022",
+        "module": "es2022",
+        "jsx": "preserve",
+        "jsxImportSource": "vue",
+        "strict": true,
+        "noImplicitThis": false,
+
+        "verbatimModuleSyntax": true,
+
+        "esModuleInterop": true,
+        "forceConsistentCasingInFileNames": true,
+        "libReplacement": false,
+
+        /*Enable isolated import*/
+        "isolatedModules": true,
+        "preserveValueImports": false,
+        "importsNotUsedAsValues": "remove",
+        "moduleResolution": "Bundler",
+        "paths": {
+            "app/*": ["./src/app/*"],
+            "pages/*": ["./src/pages/*"],
+            "widgets/*": ["./src/widgets/*"],
+            "features/*": ["./src/features/*"],
+            "entities/*": ["./src/entities/*"],
+            "@shared/*": ["./src/shared/*"]
+        }
+    },
+    "include": [
+        "./src/**/*"
+, "vite-env.d.ts"    ]
+}

@@ -1,0 +1,1 @@
+export { default as ModelComponent } from "./ui/index.vue"

@@ -1,0 +1,28 @@
+:root {
+    --margin-top-global: 2em;
+    --margin-bottom-global: 2em;
+    --c-background: dark green;
+}
+
+.section {
+    padding-top: var(--margin-top-global);
+    padding-bottom: var(--margin-bottom-global);
+    background-color: var(--c-background);
+}
+
+.section .container {
+    display: flex;
+    flex-direction: column;
+}
+
+.title {
+    text-align: right;
+    color: white;
+    margin-bottom: var(--margin-bottom-global);
+    font: 600 normal 32px/40px Inter, sans-serif;
+}
+
+.grid {
+    display: grid;
+    margin-top: 40px
+}

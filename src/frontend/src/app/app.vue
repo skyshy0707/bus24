@@ -1,0 +1,58 @@
+<template>
+    <Header
+        style="margin: 0.5em"
+    ></Header>
+    <main
+        style="margin: 0.5em"
+    >
+        <suspense>
+            <RouterView></RouterView>
+        </suspense>
+    </main>
+</template>
+
+<style lang="css">
+
+input, textarea {
+    border-radius: 6px;
+    margin-left: 0.4em
+}
+
+.model-field {
+    width: 256px;
+    padding-left: 1rem
+}
+.scroll-content::-webkit-scrollbar{
+    width: 6px;
+}
+.scroll-content::-webkit-scrollbar-track  {
+    background-color: rgba(217, 241, 0, 0.342);
+}
+.scroll-content::-webkit-scrollbar-thumb {
+    background-color:rgba(65, 2, 90, 0.692);
+    border-radius: 2px;
+    box-shadow: inset 1px 1px 2px #ddd
+}
+
+</style>
+
+<script lang="ts">
+
+
+import { defineComponent, type PropType } from 'vue'
+
+
+import { ProfileStore } from "entities/profile/ui/Profile"
+import { Header } from "features/header"
+
+
+export default defineComponent({
+    name: 'App',
+    mixins: [
+        ProfileStore as any
+    ],
+    components: {
+        Header
+    }
+})
+</script>

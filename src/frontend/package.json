@@ -1,0 +1,31 @@
+{
+  "name": "bus24",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "dev": "vite --host",
+    "build": "run-p type-check \"build-only {@}\" --",
+    "build-only": "vite build",
+    "type-check": "vue-tsc --noEmit -p tsconfig.json",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "dependencies":{
+    "@vitejs/plugin-vue": "6.0.0",
+    "@vueuse/core": "14.3.0",
+    "axios": "1.16.1",
+    "vite-tsconfig-paths": "6.1.1",
+    "vue": "3.5.35",
+    "vuex-persistedstate": "4.1.0",
+    "vue-router": "5.1.0",
+    "zustand": "5.0.14"
+  },
+  "devDependencies": {
+    "npm-run-all2": "9.0.1",
+    "vite": "7.3.5",
+    "vue-tsc": "3.3.3"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
+}

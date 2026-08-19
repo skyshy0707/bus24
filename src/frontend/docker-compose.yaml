@@ -1,0 +1,32 @@
+services:
+  frontend-build:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      args:
+        VITE_API_HOST: ${VITE_API_HOST}
+    volumes:
+      - build_vol:/out
+      - ./nginx/nginx.conf:/etc/nginx/conf.d/default.conf:ro
+    command: sh -c 'cp -r /app/dist/. /out'
+    container_name:
+      frontend-build
+  frontend:
+    build:
+      context: .
+      #dockerfile: nginx/Dockerfile
+    image: bus24
+    restart: unless-stopped
+    ports:
+      - 8700:80
+    volumes:
+      - build_vol:/usr/share/nginx/html:ro
+    depends_on:
+      - frontend-build
+    command: npm run dev
+    #command: sh -c 'while [ ! -f /usr/share/nginx/html/index.html ]; do sleep 0.2; done; chmod -R 644 /etc/nginx/conf.d/* /etc/nginx/nginx.conf; nginx -g "daemon off;"'
+    #command: sleep infinity
+
+
+volumes:
+  build_vol:

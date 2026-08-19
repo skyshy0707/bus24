@@ -1,0 +1,170 @@
+[
+{
+    "model": "api.bus",
+    "pk": 1,
+    "fields": {
+        "model": "КАВЗ-4270",
+        "capacity": 90
+    }
+},
+{
+    "model": "api.bus",
+    "pk": 2,
+    "fields": {
+        "model": "КАвЗ-4238 \"Аврора\"",
+        "capacity": 40
+    }
+},
+{
+    "model": "api.bus",
+    "pk": 3,
+    "fields": {
+        "model": "ЛиАЗ 4292",
+        "capacity": 82
+    }
+},
+{
+    "model": "api.bus",
+    "pk": 4,
+    "fields": {
+        "model": "ЛиАЗ 5292 (рестайлинг 2013)",
+        "capacity": 112
+    }
+},
+{
+    "model": "api.bus",
+    "pk": 5,
+    "fields": {
+        "model": "ЛиАЗ-6213",
+        "capacity": 154
+    }
+},
+{
+    "model": "api.bus",
+    "pk": 6,
+    "fields": {
+        "model": "KAMAZ-4290-30-5N CNG",
+        "capacity": 60
+    }
+},
+{
+    "model": "api.bus",
+    "pk": 7,
+    "fields": {
+        "model": "NEFAZ-5299-30-57 CNG",
+        "capacity": 92
+    }
+},
+{
+    "model": "api.bus",
+    "pk": 8,
+    "fields": {
+        "model": "NEFAZ-5299-40-57 CNG",
+        "capacity": 96
+    }
+},
+{
+    "model": "api.bus",
+    "pk": 9,
+    "fields": {
+        "model": "KAMAZ-6299-40-5F",
+        "capacity": 162
+    }
+},
+{
+    "model": "api.bus",
+    "pk": 10,
+    "fields": {
+        "model": "NEFAZ-5299-31-57 CNG",
+        "capacity": 73
+    }
+},
+{
+    "model": "api.bus",
+    "pk": 11,
+    "fields": {
+        "model": "ПАЗ-422320-04 \"CITYMAX 9\"",
+        "capacity": 77
+    }
+},
+{
+    "model": "api.bus",
+    "pk": 12,
+    "fields": {
+        "model": "ЛиАЗ \"CITYMAX 12\"",
+        "capacity": 115
+    }
+},
+{
+    "model": "api.bus",
+    "pk": 13,
+    "fields": {
+        "model": "Volgabus 4270.20-06  \"Ситиритм 10 DLE\"",
+        "capacity": 65
+    }
+},
+{
+    "model": "api.bus",
+    "pk": 14,
+    "fields": {
+        "model": "Volgabus 5270.20-06 \"Ситиритм 12 DLE\"",
+        "capacity": 111
+    }
+},
+{
+    "model": "api.bus",
+    "pk": 15,
+    "fields": {
+        "model": "Volgabus 4298",
+        "capacity": 49
+    }
+},
+{
+    "model": "api.bus",
+    "pk": 16,
+    "fields": {
+        "model": "Volgabus  6271G2 \"СитиРитм -18 DLF\"",
+        "capacity": 184
+    }
+},
+{
+    "model": "api.bus",
+    "pk": 17,
+    "fields": {
+        "model": "Volgabus 6270G4 \"Гипербас\"",
+        "capacity": 130
+    }
+},
+{
+    "model": "api.bus",
+    "pk": 18,
+    "fields": {
+        "model": "Mercedes Citaro",
+        "capacity": 106
+    }
+},
+{
+    "model": "api.bus",
+    "pk": 19,
+    "fields": {
+        "model": "Mercedes Citaro Capacity L",
+        "capacity": 199
+    }
+},
+{
+    "model": "api.bus",
+    "pk": 20,
+    "fields": {
+        "model": "Mercedes Citaro Ü",
+        "capacity": 82
+    }
+},
+{
+    "model": "api.bus",
+    "pk": 21,
+    "fields": {
+        "model": "Volvo 8900 Electric",
+        "capacity": 110
+    }
+}
+]

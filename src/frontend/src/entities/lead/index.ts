@@ -1,0 +1,1 @@
+export { default as Lead } from './ui/index.vue'

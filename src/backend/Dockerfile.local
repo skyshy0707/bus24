@@ -1,0 +1,44 @@
+# Используем базовый образ Python
+FROM python:3.13.0-slim-bullseye
+
+# Установка переменных окружения для Python и сертификатов
+ENV PYTHONDONTWRITEBYTECODE=1 \
+    PYTHONUNBUFFERED=1 \
+    REQUESTS_CA_BUNDLE=/etc/ssl/certs/ca-certificates.crt \
+    SSL_CERT_FILE=/etc/ssl/certs/ca-certificates.crt
+
+# Устанавливаем системные обновления и зависимости
+RUN apt-get update -y && apt-get upgrade -y && apt-get install -y \
+    libmagic-dev \
+    gcc \
+    gettext \
+    binutils \
+    libproj-dev \
+    gdal-bin \
+    --fix-missing && \
+    apt-get clean && \
+    rm -rf /var/lib/apt/lists/* /var/cache/apt
+
+# Копируем файл с зависимостями
+COPY requirements.txt ./app/requirements.txt
+
+# Устанавливаем Python-зависимости
+RUN pip install --no-cache-dir --disable-pip-version-check -r ./app/requirements.txt
+
+# Устанавливаем рабочую директорию для приложения
+WORKDIR /app
+
+# Копируем весь проект в контейнер
+COPY . .
+
+# Установка прав на рабочую директорию (опционально)
+#RUN chmod -R 755 /app
+
+#RUN python manage.py makemigrations
+#RUN python manage.py makemigrations device
+#RUN python manage.py makemigrations bearer_auth
+#RUN python manage.py migrate
+
+CMD daphne -b 0.0.0.0 -p 8000 bus_lead.asgi:application
+
+#CMD ["sleep", "infinity"]
