@@ -21,10 +21,10 @@ DEBUG=[INTEGER] #Django settings
 SECRET_AUTH_KEY=[HEX]
 
 
-Опционально, можно изменить `SECRET_AUTH_KEY`, используемый при Bearer-аутентификации
+`SECRET_AUTH_KEY` - исходный ключ Bearer-аутентификации
 
 
-**Архитектура** - REST API. 
+Архитектура - REST API. 
 
 <pre>
 ┌───────────────────────────────────┐
