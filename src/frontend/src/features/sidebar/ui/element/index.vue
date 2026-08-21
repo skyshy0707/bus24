@@ -24,6 +24,7 @@
     .sidebar {
         align-items: self-start;
         display: flex;
+        flex: 0 0 120px;
         flex-direction: column;
         margin-right: 2em;
         background-image: linear-gradient(to top, rgb(141, 119, 148), #280049a2, rgb(28, 0, 46));
@@ -31,9 +32,10 @@
 
     .sidebar-btn{
         background-color:#273b00a6;
+        color: white;
         border-radius : 6px;
         height: 1.5rem;
-        width: 100%;
+        width: 93%;
         margin: 0.5em;
         padding: 6px;
         text-align: center;
@@ -44,7 +46,11 @@
 
     @media (max-width: 460px) {
         .sidebar {
-            flex-direction: row
+            flex-direction: row;
+            flex: 0 0 100%;
+        }
+        .sidebar-btn{
+            width: 100%;
         }
     }
 

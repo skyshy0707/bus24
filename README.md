@@ -153,7 +153,7 @@ shared - утилиты, вспомогательные компонеты
 
 
 
-Основные настройки frontend/src/.env.development
+Основные настройки frontend: /src/.env.development
 
 VITE_API_MODE=dev
 

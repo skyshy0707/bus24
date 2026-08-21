@@ -1,8 +1,8 @@
 <template>
 
     <Scroll
-        :set="set"
-        @update:set="(newValue) => $emit('update:set', newValue)"
+        :set="copySet"
+        @update:set="(newValue) => updateSet(newValue)"
         :endpoint="endpoint"
         :mark_element_action_as="mark_element_action_as"
         :limit="limit"   
@@ -18,8 +18,8 @@
         >
             <p>Редактирование состава автобусов на маршруте:</p>
             <SendSet
-                :set="set"
-                @update:set="(newValue) => $emit('update:set', newValue)"
+                :set="copySet"
+                @update:set="(newValue) => updateSet(newValue)"
                 :change_type="change_type"
                 :button_send_set="button_send_set"
                 :where_emit="'sendSet'"
@@ -89,6 +89,11 @@ const ChangeUnitSet =  defineComponent({
         }
     },
     methods: {
+        updateSet(data){
+            console.log(`newValue: ${data}`)
+            this.$emit('update:set', data)
+            this.copySet = data
+        },
         sendSet(data: ChangeUnitSetParams){
             console.log(`ChangeUnitSet.sendSet: ${Object.keys(data)}`)
             console.log(`data.units: ${data.units}`)

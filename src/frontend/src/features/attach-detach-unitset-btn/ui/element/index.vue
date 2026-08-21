@@ -11,13 +11,13 @@
 
 <style lang="css">
     .minus-items{
-        background-color: rgba(104, 0, 0, 0.555);
-        border-radius: 15%;
+        background-color: rgba(187, 0, 0, 0.82);
+        border-radius: 6px;
         width: 90px
     }
     .plus-items {
-        background-color: #00501b77;
-        border-radius: 15%;
+        background-color: #00501bd3;
+        border-radius: 6px;
         width: 90px
     }
 </style>
@@ -65,7 +65,9 @@
                     if (newPropValue) {
                          console.log(`updated prop \/set\/ was sended to SendSet: ${newPropValue}`)
                     }
-                }
+                },
+                deep: true,
+                immediate:true,
             }
         }
     })

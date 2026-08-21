@@ -10,6 +10,11 @@ export const BaseCrud = defineComponent({
     emits: [
         'update:set'
     ],
+    data(){
+        return {
+            copySet: this.set
+        }
+    },
     props: {
         set: {
             type: Array as PropType<Id[]>,
@@ -17,6 +22,10 @@ export const BaseCrud = defineComponent({
         },
         model: {
             type: String as PropType<string>
+        },
+        mark_element_action_as: {
+            type: String as PropType<'add' | 'remove'>,
+            default: 'remove'
         },
 
     },
@@ -39,8 +48,19 @@ export const BaseCrud = defineComponent({
                     this.$emit(`delete_`, id)
 
             const reduced = this.getReducedSet(id, this.set)
-            this.set = reduced
-            this.$emit('update:set', [...this.set])
+            this.copySet = reduced
+            this.$emit('update:set', [...reduced])
+        }
+    },
+    watch: {
+        set: {
+            handler(newValue){
+                if (newValue){
+                    this.copySet = newValue
+                }
+            },
+            deep: true,
+            immediate: true
         }
     }
 })

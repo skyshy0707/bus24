@@ -56,7 +56,20 @@
                         <template
                             v-if="enabledCrud"
                         >
-                            <div
+                            <CRUD
+                                v-if="item !== undefined"
+                                :enabledSubset="enabledSubset"
+                                :mark_element_action_as="mark_element_action_as"
+                                :item="item"
+                                v-model:items="items"
+                                :itemView="itemView"
+                                :set="copySet"
+                                @update:set="(newValue) => updateSet(newValue)"
+                                @delete_="delete_"
+                                @get="view"
+                            >
+                            </CRUD>
+                            <!--<div
                                 class="actions"
                             >
                                 <template
@@ -94,7 +107,7 @@
                                 >
                                     ❌ DELETE
                                 </button>
-                            </div>
+                            </div>-->
                         </template>
                     </div>
                 </template>
@@ -108,10 +121,24 @@
                 @scroll="loadFromServer"
                 v-if="enabledCrud && !contentDraw"
             >
+
                 <template
                     v-for="item in items" :key="item.id"
-                >
-                    <div
+                >   
+                    <CRUD
+                        v-if="item !== undefined"
+                        :enabledSubset="enabledSubset"
+                        :mark_element_action_as="mark_element_action_as"
+                        :item="item"
+                        v-model:items="items"
+                        :itemView="itemView"
+                        :set="copySet"
+                        @update:set="(newValue) => updateSet(newValue)"
+                        @delete_="delete_"
+                        @get="view"
+                    >
+                    </CRUD>
+                    <!--<div
                         class="actions"
                     >
                         <template
@@ -149,7 +176,7 @@
                         >
                             ❌ DELETE
                         </button>
-                    </div>
+                    </div>-->
                 </template>
             </div>
         </div>
@@ -210,7 +237,8 @@
 
 
 .field-radio {
-    margin-bottom: 0.4em
+    margin-bottom: 0.4em;
+    margin-left: 0.5em
 }
 
 .item-crud {
@@ -252,11 +280,13 @@
     import type { Select, ItemView, WSRequestParams } from "@shared/types/interfaces"
     import type { Id, Item } from "@shared/types/types"
     import { BaseCrud } from "@shared/ui/scroll/ui/base"
+    import { CRUD } from "@shared/ui/scroll/ui/crud"
 
     
     const Scroll = defineComponent({
         name: 'Scroll',
         mixins: [BaseCrud as any],
+        components: { CRUD },
         inheritAttrs: false,
         inject: {
             $profile: {
@@ -272,10 +302,6 @@
             endpoint: { 
                 type: String as PropType<string>,
                 required: true
-            },
-            mark_element_action_as: {
-                type: String as PropType<'add' | 'remove'>,
-                default: 'remove'
             },
             enabledCrud: {
                 type: Boolean as PropType<boolean>,
@@ -311,7 +337,7 @@
                 loading: true,
                 items: [] as Array<Item>,
                 copyItems: [] as Array<Item>, 
-                copySet: this.set
+                //copySet: this.set
             }
         },
         computed: {
@@ -331,14 +357,14 @@
             selectType(){
                 return String(this.select?.selectType)=='single' ? 'radio' : 'checkbox'
             },
-            setSymbolToElement(){
+            /*setSymbolToElement(){
                 if (this.mark_element_action_as === 'add'){
                     return '➕'
                 }
                 else return '➖'
-            },
+            },*/
             setSymbolToSet(){
-                return this.setSymbolToElement === '➕' ? '➖' : '➕'
+                return this.mark_element_action_as === 'add' ? '➖' : '➕'
             },
             setClassPrefixToSet(){
                 return this.mark_element_action_as === 'add' ? 'remove' : 'add'
@@ -426,14 +452,14 @@
         },
 
         watch: {
-            set: {
+            /*set: {
                 handler(newPropValue){
                     if (newPropValue){
                         this.copySet = newPropValue
                     }
                 },
                 immediate: true
-            },
+            },*/
             endpoint: {
                 handler(newPropValue){
                     if (newPropValue){
@@ -455,7 +481,7 @@
             
         },
         methods: {
-            isLink(link: any){
+            /*isLink(link: any){
                 return typeof link == 'string' ? link.includes('://') : false
             },
             standardtize(bort: string | number){
@@ -470,7 +496,7 @@
                     bort = '\u2003' + bort
                 }
                 return bort
-            },
+            },*/
             dateOrAny(value: any){
                 if (typeof value === "string" && !value.startsWith("GMT")){
                     var date = new Date(value)
@@ -481,7 +507,7 @@
                 }
                 return value
             },
-            moveToChangeSet(id: Id){
+            /*moveToChangeSet(id: Id){
 
                 console.log(`item id move to set: ${id}`)
                 console.log(`items before deleting: ${this.items.length}`)
@@ -498,11 +524,12 @@
                 this.copySet = [...this.copySet, id]
                 this.$emit('update:set', JSON.parse(JSON.stringify(this.copySet)))
                 console.log(`extended this.set: ${this.copySet}`)
-            },
+            },*/
             removeFromChangeSet(id: Id){
                 const reduced = this.getReducedSet(id, this.copySet)
                 this.copySet = reduced
                 this.$emit('update:set', reduced)
+                //this.$emit('update:set', JSON.parse(JSON.stringify(this.set)))
                 const item: Item = this.copyItems.find(item => item.id == id)
                 this.items.push(item)
                 
@@ -547,9 +574,12 @@
 
                 if (this.items.length > 0){
                     console.log(`${Object.keys(this.items[0])}`)
-                }
-
-                
+                } 
+            },
+            updateSet(newValue: Array<Item>){
+                console.log(`updateSet runs: ${[...newValue]}`)
+                this.$emit('update:set', [...newValue]) 
+                this.copySet = [...newValue]
             }
         }
     })
