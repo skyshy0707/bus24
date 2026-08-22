@@ -1,12 +1,7 @@
-import { useStore } from 'vuex'
-
 import storage from "@shared/model/store"
-
 import type { AuthorizationHeader } from "@shared/types/interfaces"
 
 function getAuthHeader(): AuthorizationHeader | undefined{
-
-
     if (storage.getState().token){
         return { Authorization: `Bearer ${storage.getState().token}` }
     }

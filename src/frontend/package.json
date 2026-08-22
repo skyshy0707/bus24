@@ -21,6 +21,7 @@
     "zustand": "5.0.14"
   },
   "devDependencies": {
+    "@vue/typescript-plugin": "3.3.11",
     "npm-run-all2": "9.0.1",
     "vite": "7.3.5",
     "vue-tsc": "3.3.3"

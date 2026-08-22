@@ -13,8 +13,6 @@ interface MessageView {
     date: string
 }
 
-
-
 interface MessageEdit {
     lead?: LeadView,
     text?: string

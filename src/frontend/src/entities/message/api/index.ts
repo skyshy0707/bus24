@@ -96,53 +96,26 @@ class MessageApi implements CrudModel{
     }
 
     async create(data: FormData){
-        console.log('--- MESSAGE CREATE CALLED ---')
-        console.log('WebSocket state:', this.ws?.readyState)
-        console.log('WebSocket URL:', this.ws?.url)
-
         const ret = data.entries()
-
-
-        /*for (let item of data){
-            console.log(`RET ITEM: 0: ${item[0]} : ${item[1]}, ${typeof item[1]}`)
-        }*/
-
-        //ret['to'] = data.getAll('to')
-
-        //console.log(`to: ${ret['to']}`)
-
-        
-
-        
         const validated = Object.fromEntries(ret) as Partial<MessageCreate>
        
-
-
         for (const key of new Set(data.keys())){
             
             var item = 
                 typeof this.defaultObject[key] == 'object' && 
                 this.defaultObject[key].hasOwnProperty('length') ? 
                 data.getAll(key) : data.get(key)
-
-            console.log(`KEY: ${key} ITEM: ${item}`)
             validated[key] = item
         }
-
-        console.log(`Message.to: ${validated.to} as ${typeof validated.to} as first ${(validated.to as Object)[0]}, message.lead: ${validated.lead}`)
-        
         try {
             const response  = await wsRequest({
                 socket: this.ws,
                 stream: "message:create",
                 data: validated,
             })
-
-            console.log('--- MESSAGE CREATE RESPONSE:', response)
             
             return response
         } catch (error) {
-            console.error('--- MESSAGE CREATE ERROR:', error)
             throw error
         }
     }

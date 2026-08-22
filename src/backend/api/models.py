@@ -1,12 +1,10 @@
 import random
 
 from django.contrib.auth.models import AbstractUser
+from django.contrib import admin
 from django.db import models
 
-from django.contrib import admin
-
 from api import validators
-from api import utils
 
 # Create your models here.
 
@@ -47,21 +45,6 @@ def define_min_capacity(capacity_class: str) -> int:
 def assign_route_no():
 
     return str(random.randint(1, 1000))
-
-    """
-    numbers = models.Lead.objects.values_list('route_no', flat=True)
-    max_route = 10000
-
-    if len(numbers) >= max_route: 
-        max_route = max_route + len(numbers) - max_route
-        return max_route
-
-    while True:
-        number = random.randint(1, max_route) 
-        if number not in numbers:
-            return number
-    """
-
 
 class Bus(models.Model):
 

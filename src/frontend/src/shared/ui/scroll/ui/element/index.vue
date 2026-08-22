@@ -337,13 +337,11 @@
                 loading: true,
                 items: [] as Array<Item>,
                 copyItems: [] as Array<Item>, 
-                //copySet: this.set
             }
         },
         computed: {
             contentDraw(): boolean { 
                 if (this.labels === undefined){
-                    console.log(`Content darw is FALSE BECAUSE: ${typeof this.labels}`)
                     return false
                 }
                 return true
@@ -357,12 +355,6 @@
             selectType(){
                 return String(this.select?.selectType)=='single' ? 'radio' : 'checkbox'
             },
-            /*setSymbolToElement(){
-                if (this.mark_element_action_as === 'add'){
-                    return '➕'
-                }
-                else return '➖'
-            },*/
             setSymbolToSet(){
                 return this.mark_element_action_as === 'add' ? '➖' : '➕'
             },
@@ -370,7 +362,6 @@
                 return this.mark_element_action_as === 'add' ? 'remove' : 'add'
             },
             selectedValue: {
-                //TO DO: Изменить для присовения данного свойства из исчточника pk.id так и pk_id
                 get(){
                     var selected = this.object[this.select?.fieldName]
 
@@ -384,7 +375,6 @@
                     return selected
                 },
                 set(newValue){
-                    console.log(`selectedValue - newvalue: ${newValue}, typeof array ${typeof newValue}: ${newValue.hasOwnProperty('length')}`)
                     const fieldName = (this.select as Select).fieldName
                     if (typeof this.object[fieldName] == 'object' && !this.object[fieldName].hasOwnProperty('length')){
                         this.object[fieldName] = { 
@@ -399,25 +389,16 @@
         },
 
         async mounted(){
-
-            console.log(`SCROLL CREATED contentDraw: ${this.contentDraw},  endpoint: ${this.endpoint}`)
             await this.loadFromServer()
-
             const offset = 0
 
             if (this.ws){
 
-                const wsRequestParams = this.ws as WSRequestParams
-
-                const ws = new WebSocket(getWsUrl(this.endpoint))
-
                 const last = this.items[0]
-                var lastId = 0
-
-                if(last){
-                    lastId = last.id
-                }
-
+                const lastId = last ? last.id : 0
+                const wsRequestParams = this.ws as WSRequestParams
+                const ws = new WebSocket(getWsUrl(this.endpoint))
+                
                 ws.send(JSON.stringify({
                     stream: wsRequestParams.stream,                    
                     payload: {
@@ -446,20 +427,10 @@
                         break
                     }
                 }
-
             }
             
         },
-
         watch: {
-            /*set: {
-                handler(newPropValue){
-                    if (newPropValue){
-                        this.copySet = newPropValue
-                    }
-                },
-                immediate: true
-            },*/
             endpoint: {
                 handler(newPropValue){
                     if (newPropValue){
@@ -481,22 +452,6 @@
             
         },
         methods: {
-            /*isLink(link: any){
-                return typeof link == 'string' ? link.includes('://') : false
-            },
-            standardtize(bort: string | number){
-                const maxR = 4
-                const r = typeof bort == 'number' ? String(bort).length : bort.length
-                
-                if (r > maxR){
-                    bort = bort.toString().slice(0, maxR-2) + '..'
-                }
-    
-                for (let i=0; i < maxR - r; i++){
-                    bort = '\u2003' + bort
-                }
-                return bort
-            },*/
             dateOrAny(value: any){
                 if (typeof value === "string" && !value.startsWith("GMT")){
                     var date = new Date(value)
@@ -507,29 +462,10 @@
                 }
                 return value
             },
-            /*moveToChangeSet(id: Id){
-
-                console.log(`item id move to set: ${id}`)
-                console.log(`items before deleting: ${this.items.length}`)
-                const reduced = this.getReducedSet(id, this.items)
-                console.log(`reduced items: ${reduced}`)
-
-                this.items = reduced
-
-                console.log(`items after deleting: ${this.items.length}`)
-
-                //this.$emit('update:set', [...this.set, id])
-
-                console.log(`copySet.length: ${this.copySet.length}`)
-                this.copySet = [...this.copySet, id]
-                this.$emit('update:set', JSON.parse(JSON.stringify(this.copySet)))
-                console.log(`extended this.set: ${this.copySet}`)
-            },*/
             removeFromChangeSet(id: Id){
                 const reduced = this.getReducedSet(id, this.copySet)
                 this.copySet = reduced
                 this.$emit('update:set', reduced)
-                //this.$emit('update:set', JSON.parse(JSON.stringify(this.set)))
                 const item: Item = this.copyItems.find(item => item.id == id)
                 this.items.push(item)
                 
@@ -544,22 +480,7 @@
                         offset: this.offset
                     }
                 })
-
-                console.log(`response.status: ${response.status}`)
-
-                console.log(`List response: ${Object.keys(response.data)}`)
-                //console.log(`First item: id: ${response.data[1].id}, value: ${response.data[1].value}, typeof null: ${response.data[1] == null}`)
-                console.log(`
-                    results: ${response.data.results}, 
-                    length: ${response.data?.results?.length},
-                    offset: ${this.offset}
-                `)
-
-                
-
                 const items = response.data ? response.data.results || []: []
-
-                console.log(`count: ${response.data.count}`)
 
                 if (items.length === 0){
                     this.hasMore = false
@@ -571,13 +492,8 @@
                     this.offset += this.limit
                     this.loading = true
                 }
-
-                if (this.items.length > 0){
-                    console.log(`${Object.keys(this.items[0])}`)
-                } 
             },
             updateSet(newValue: Array<Item>){
-                console.log(`updateSet runs: ${[...newValue]}`)
                 this.$emit('update:set', [...newValue]) 
                 this.copySet = [...newValue]
             }

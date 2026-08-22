@@ -1,27 +1,14 @@
-from django.db.models import F, Q, Count, Prefetch
-from django.http import Http404, HttpResponse
-from django.shortcuts import render
-from django.views.generic import ListView, UpdateView
-
-from djangochannelsrestframework.generics import GenericAsyncAPIConsumer
-from djangochannelsrestframework.mixins import ListModelMixin, CreateModelMixin
-
-from rest_framework import generics, request, response, status, views, viewsets
+from django.db.models import F, Q, Count
+from django.http import Http404
+from rest_framework import generics, request, response, status, viewsets
 from rest_framework.authentication import ( 
     BasicAuthentication
 )
 
-
 from api import models, pagination, permissions, serializers, utils
-from bearer_auth.middleware.bearer_auth.utils import (
-    calculate_fingerprint, 
-    deactivate_tokens, 
-    get_client_ip
-)
+from bearer_auth.middleware.bearer_auth.utils import deactivate_tokens
 from bearer_auth.middleware.bearer_auth import BearerAuthentication
-from bearer_auth.models import Token
 from bearer_auth.middleware.bearer_auth.utils import create_bearer_token
-from device.models import Device, UserDevice
 
 # Create your views here.
 
@@ -45,34 +32,14 @@ class ATPMixinE(ATPMixin):
 class ATPView(ATPMixinE, generics.RetrieveAPIView):
     serializer_class = serializers.ATPSerializer
 
+
 class ATPCreate(ATPMixin, generics.CreateAPIView):
     serializer_class = serializers.ATPUpdateSerializer
 
-    '''
-    def post(self, request: request.Request):
-        serialized = self.serializer_class(data=request.data)
-
-        if not serialized.is_valid():
-            print(serialized.errors)
-
-        serialized.is_valid(raise_exception=True)
-
-        return response.Response(data=serialized.validated_data, status=status.HTTP_201_CREATED)
-    '''
 
 class ATPEdit(ATPMixinE, generics.UpdateAPIView):
     serializer_class = serializers.ATPUpdateSerializer
 
-    '''
-    def patch(self, request: request.Request, *args, **kwargs):
-        print("this endpoint")
-        serialized = self.serializer_class(data=request.data)
-        if not serialized.is_valid():
-            print("errors", serialized.errors)
-            return response.Response(data=serialized.error_messages, status=status.HTTP_400_BAD_REQUEST)
-        
-        return response.Response(data=serialized.validated_data, status=status.HTTP_200_OK)
-    '''
 
 class ATPDelete(generics.DestroyAPIView, ATPMixinE):
     pass
@@ -100,7 +67,6 @@ class BusColors(ListChoicesMixin):
 class BusCathegory(ListChoicesMixin):
 
     queryset = utils.choices_to_objects(models.CAPACITY_CATHEGORY)
-
 
 
 class Buses(generics.ListAPIView):
@@ -142,10 +108,8 @@ class UnitsForAcceptingLead(generics.ListAPIView):
         capacity_class = self.kwargs.get("cc")
         capacity = models.define_min_capacity(capacity_class)
         atp_id = permissions.get_profile_id(self.request)
-        print("capacity: ", capacity, "cc", capacity_class)
         return models.Unit.objects.filter(Q(bus__capacity__gte=capacity) & Q(lead=None) & Q(atp__id=atp_id))
     
-
 
 class UncoveredLeads(generics.ListAPIView):
 
@@ -179,15 +143,9 @@ class MyAcceptedLeads(ProfileLeadsInfo):
 
     def get_queryset(self):
         atp_id = permissions.get_profile_id(self.request)
-
-        '''
-        prefetch_units = Prefetch(
-            "unit_set",
-            queryset=models.Unit.objects.filter(lead__atp_id=atp_id)
-        )
-        '''
         return models.Lead.objects.filter(unit__atp_id=atp_id).distinct()
-    
+
+
 class MyBusUnits(ListMixin, generics.ListAPIView):
 
     serializer_class = serializers.UnitSerializer
@@ -238,51 +196,10 @@ class BusUnitCreate(BusUnitMixin, generics.CreateAPIView):
 
     serializer_class = serializers.UnitCreateSerializer
 
-    '''
-    def post(self, request, *args, **kwargs):
-
-        print("data:", request.data)
-
-        serialized = self.serializer_class(
-            data=request.data,
-            context={"request": request}
-        )
-
-        if serialized.is_valid(raise_exception=False):
-            return response.Response(
-                status=status.HTTP_201_CREATED,
-                data=serialized.validated_data
-            )
-        
-        print("errors:", serialized.errors)
-    '''
-
-
 
 class BusUnitEdit(BusUnitCrudMixin, generics.UpdateAPIView):
 
     serializer_class = serializers.UnitUpdateSerializer
-
-    '''
-    def patch(self, request, *args, **kwargs):
-
-        print("data:", request.data)
-        instance = self.get_object()
-
-        serialized = self.serializer_class(
-            instance=instance,
-            data=request.data,
-            context={"request": request},
-            partial=True
-        )
-
-        if serialized.is_valid(raise_exception=False):
-            pass
-
-        print("validated:", serialized.validated_data)
-        print("errors:", serialized.errors)
-
-    '''
         
  
 class BusUnitDelete(BusUnitCrudMixin, generics.DestroyAPIView):
@@ -321,19 +238,6 @@ class LeadCreate(LeadMixin, generics.CreateAPIView):
 
     serializer_class = serializers.LeadCreateSerializer
 
-    '''
-    def post(self, request, *args, **kwargs):
-        print("request.data:", request.data)
-        serialized = self.serializer_class(data=request.data, context={'request': request})
-        print("serialized data: ", serialized.initial_data)
-        if not serialized.is_valid(raise_exception=False):
-            print("errors:", serialized.errors)
-
-    '''
-    
-    
-    
-
 
 class LeadDelete(LeadCrudMixin, generics.DestroyAPIView):
 
@@ -362,12 +266,9 @@ class ModifyLeadUnitSet(LeadCrudMixin, generics.UpdateAPIView):
             )
         
         qs_params = utils.to_data_obj(serialized.validated_data)
-
-
+        
         units = qs_params.units
         change_type = qs_params.change_type
-
-        print("units: ", units, "change_type: ", change_type)
         unit_queryset = models.Unit.objects.filter(id__in=units, atp__id=atp_id)
         lead = self.get_object()
 
@@ -400,26 +301,10 @@ class MessageWMixin(MessageMixin):
     ]
 
 
-
 class MessageCreate(MessageWMixin, generics.CreateAPIView):
 
     serializer_class = serializers.MessageCreateSerializer
 
-
-    '''
-    def post(self, request, *args, **kwargs):
-        print("request.data:", request.data)
-        serialized = self.serializer_class(data=request.data, context={'request': request})
-        print("serialized data: ", serialized.initial_data)
-        if not serialized.is_valid(raise_exception=False):
-            print("errors:", serialized.errors)
-            return response.Response(status=status.HTTP_400_BAD_REQUEST, data=serialized.errors)
-
-        serialized.create(validated_data=serialized.validated_data)
-        # Return serialized.data instead of validated_data to get proper JSON-serializable output
-        return response.Response(status=status.HTTP_201_CREATED, data=serialized.data)
-    '''
-    
 
 class MessageUpdate(MessageWMixin, generics.UpdateAPIView):
 
@@ -427,7 +312,6 @@ class MessageUpdate(MessageWMixin, generics.UpdateAPIView):
 
 
 class MessageDelete(MessageWMixin, generics.DestroyAPIView):
-
     pass
 
 
@@ -463,6 +347,7 @@ class SendMessage(generics.CreateAPIView):
         serializer.data.to = to
         return super().perform_create(serializer)
 
+
 class Chats(ListMixin, generics.ListAPIView):
 
     serializer_class = serializers.ATPSerializer
@@ -470,8 +355,6 @@ class Chats(ListMixin, generics.ListAPIView):
     def get_queryset(self):
         atp_id = permissions.get_profile_id(self.request)
         return models.ATP.objects.filter(Q(message__to__in=[atp_id]) & Q(message__atp=atp_id)).distinct()
-
-
 
 
 class ShoutBox(ListMixin, generics.ListAPIView):
@@ -507,6 +390,7 @@ class Signup(generics.CreateAPIView):
 
     serializer_class = serializers.RegistrationSerialzier
 
+
 class Signin(generics.views.APIView):
 
     authentication_classes = [
@@ -520,6 +404,7 @@ class Signin(generics.views.APIView):
             create_bearer_token(request), 
             status=status.HTTP_201_CREATED
         )
+
 
 class Logout(generics.RetrieveAPIView):
 

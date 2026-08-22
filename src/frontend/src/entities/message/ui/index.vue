@@ -135,42 +135,21 @@
             },
         },
         methods: {
-            /*async changeLead(event: Event){
-                const leadId = (event.target as HTMLInputElement).value
-                const leadResponse = await leadApi.get(leadId)
-
-                console.log(`leadId: ${leadId}, leadresp.status: ${leadResponse.status}`)
-                if (leadResponse.status === 200){
-                    this.$lead.SET_LEAD(leadResponse.data)
-                }
-            },*/
             async changeCC(event: Event){
                 const id = (event.target as HTMLInputElement).value
-
                 const leadResponse = await leadApi.get(id)
-                console.log(`leadId: ${id}, leadresp.status: ${leadResponse.status}`)
+
                 if (leadResponse.status === 200){
                     this.cc = leadResponse.data?.capacity_class
                 }
-                console.log(`this.cc: ${this.cc}`)
             },
             async viewLead(id: Id){
                 const leadResponse = await leadApi.get(id)
 
-                console.log(`leadId: ${id}, leadresp.status: ${leadResponse.status}`)
                 if (leadResponse.status === 200){
-                    console.log(`leadResponse: ${leadResponse.data.id}`)
                     this.$lead.SET_LEAD(leadResponse.data)
                 }
             }
         },
-        /*watch: {
-            object: {
-                handler(newValue){
-                    this.cc = newValue.lead.capacity_class
-                }
-            }
-        }*/
-    })
-    
+    }) 
 </script>

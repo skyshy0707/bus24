@@ -1,15 +1,13 @@
 import { type AxiosResponse } from 'axios'
 
 import { request } from "@shared/api/schema/requests"
-
 import type { CrudModel } from "@shared/types/interfaces"
-import type { Id, DjangoErrorData } from "@shared/types/types"
+import type { DjangoErrorData } from "@shared/types/types"
 
 import type { 
     Profile,
     ProfileCreate, 
-    ProfileEdit,
-    ProfileView
+    ProfileEdit
 } from "entities/profile/types"
 
 class ProfileApi implements CrudModel{

@@ -40,8 +40,4 @@ def custom_exception_handler(exc, context):
                 },
                 status=status.HTTP_400_BAD_REQUEST
             )
-        
-        # Если это NOT NULL или FOREIGN KEY — пропускаем дальше.
-        # Django вернет стандартную 500-ю ошибку, и вы увидите её в логах контейнера.
-
     return response

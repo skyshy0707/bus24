@@ -9,8 +9,6 @@ interface DjangoErrorData {
 
 type Id = number | string
 
-type SelectType = 'multi' | 'single'
-
 interface Reactable<T> { value: T }
 
 type Response = AxiosResponse<any>

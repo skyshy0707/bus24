@@ -7,9 +7,8 @@ from django.db.models import Model
 import jwt
 from rest_framework.request import Request
 
-
 from bearer_auth.models import Token, settings
-from bearer_auth.serializers import DeserializeUserDecryptedData, TokenData
+from bearer_auth.serializers import TokenData
 from device.models import Device, UserDevice
 
 logger = logging.getLogger(__name__)
@@ -76,7 +75,6 @@ def calculate_fingerprint(request: Request) -> str:
     ]
     full_string = '|'.join(parts)
 
-    logger.info(f"FULL DECRYPTED STRING OF FINGERPRINT IN BEARER AUTH: {full_string}")
     return hashlib.sha256(full_string.encode()).hexdigest()
 
 def deactivate_tokens(request: Request, userdevice_id: int | None=None, session_model: Model=Token):
@@ -86,7 +84,6 @@ def deactivate_tokens(request: Request, userdevice_id: int | None=None, session_
 
         try:
             device = Device.objects.get(fingerprint=fingerprint, ip=ip)
-            print("deactivate_tokens", "device_id", device.id, "user_id", request.user.id)
             userdevice = UserDevice.objects.get(device=device, user=request.user)
         except (Device.DoesNotExist, UserDevice.DoesNotExist):
             print("Decice was deleted or not found")
@@ -101,18 +98,12 @@ def create_bearer_token(request: Request):
     ip = get_client_ip(request)
     fingerprint = calculate_fingerprint(request)
     device, _ = Device.objects.get_or_create(ip=ip, fingerprint=fingerprint)
-
-    print("create_bearer_token", "device_id", device.id, "user_id", request.user.id)
     user_device, _ = UserDevice.objects.get_or_create(device=device, user=request.user)
     token = Token.objects.create(userdevice=user_device)
-
-
     decrypted = {
         "jti": str(token.id),
         "refresh": False
     }
-
-    print("decrypted", decrypted)
 
     token_hash = jwt.encode(
         decrypted, 

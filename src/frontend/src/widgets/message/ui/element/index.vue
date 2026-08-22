@@ -37,22 +37,16 @@
             </Scroll>
         </div>
     </div>
-
-    
-
-
-
 </template>
 
 <script lang="ts">
 
     import { defineComponent, type PropType, reactive } from 'vue'
 
-    import type { Id, Item } from "@shared/types/types"
     import type { CrudModel } from "@shared/types/interfaces"
-
+    import type { Id } from "@shared/types/types"
+    
     import { ATPLabels, MessageLabels } from 'entities/message/schema'
-    import { LeadApi } from 'entities/lead/api/lead'
     import { MessageApi } from 'entities/message/api'
     import type { MessageView } from 'entities/message/types'
     import { ProfileStore } from 'entities/profile/ui/Profile'
@@ -98,16 +92,7 @@
             }
         },
         methods: {
-            /*async view(id: Id){
-  
-                const response = await ModelControlPanel.methods?.view?.call(this, id)
-                if (response.status == 200){
-                    const leadResponse = await new LeadApi().get(response.data.lead_id)
-                    this.lead.SET_LEAD(leadResponse)
-                }
-            },*/
             async viewChat(id: Id){
-                console.log(`view chat: ${id}`)
                 this.chat = `chat/${id}`
             }
         }

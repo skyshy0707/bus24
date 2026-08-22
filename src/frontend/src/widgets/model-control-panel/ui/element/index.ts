@@ -45,7 +45,6 @@ export const ModelControlPanel = {
     methods: {
         async view(id: Id): Promise<Response> {
             const response = await this.api.get(id)
-            console.log(`RESPONSE: ${Object.keys(response)}`)
             if (response.status == 200 || response.response_status == 200){
                 this.objectValue = response.data
                 this.actionTypeValue = 'view'

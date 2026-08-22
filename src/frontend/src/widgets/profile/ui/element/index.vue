@@ -19,18 +19,11 @@
     import type { ProfileView } from 'entities/profile/types';
     import { ProfileStore } from 'entities/profile/ui/Profile'
 
-
     import { ModelControlPanel } from "widgets/model-control-panel"
     import type { SafeBaseComponent } from "widgets/types"
-import { actionType } from '@shared/types/validators';
-
-    
-    
 
     const profileApi = reactive(new ProfileApi())
-
     const ProfilePanel = defineComponent({
-
         mixins: [
             ModelControlPanel as any,
             ProfileStore as any
@@ -42,13 +35,9 @@ import { actionType } from '@shared/types/validators';
                 actionTypeValue: isEqual(this.object, this.crudModel.defaultObject) ? 'create' : 'edit'
             }
         }, 
-        created(){
-            console.log(`WIDGET Profile, actionTypeValue: ${this.actionTypeValue}`)
-        },
         props: {
             object: {
                 type: Object as PropType<ProfileView>,
-                //default: () => (profileApi.defaultObject as unknown as ProfileView),
                 required: true
             },
             crudModel: {

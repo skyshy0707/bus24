@@ -1,10 +1,5 @@
-import { reactive, type Ref, ref, onUnmounted, watch } from 'vue'
+import { reactive, onUnmounted, watch } from 'vue'
 import type { Mutate, StoreApi } from 'zustand/vanilla'
-
-import type { Reactable } from '@shared/types/types'
-
-
-
 
 // Универсальная функция, которая делает Zustand-хранилище реактивным для Vue
 export function useStore<T extends object>(zustandStore: Mutate<StoreApi<T>, []>) {

@@ -106,23 +106,12 @@ const CRUD = defineComponent({
             return value
         },
         moveToChangeSet(id: Id){
-
-            console.log(`item id move to set: ${id}`)
-            console.log(`items before deleting: ${this.items.length}`)
             const reduced = this.getReducedSet(id, this.items)
-            console.log(`reduced items: ${reduced}`)
-
-            //this.items = reduced
-
-            console.log(`items after deleting: ${this.items.length}`)
-
             const changeSet = [...this.copySet, id]
             this.copySet = changeSet
-
-            //this.$emit('update:set', [...this.set, id])
+            
             this.$emit('update:items', JSON.parse(JSON.stringify(reduced)))
             this.$emit('update:set', JSON.parse(JSON.stringify(changeSet)))
-            
         },
     },
     

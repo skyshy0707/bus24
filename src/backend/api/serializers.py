@@ -2,9 +2,7 @@ import base64
 
 from rest_framework import serializers
 
-from api import fields, models, permissions
-from config import config
-
+from api import fields, models
 
 
 class ATPSerializer(serializers.ModelSerializer):
@@ -18,11 +16,7 @@ class ATPHiddenSerialize(fields.ATPIdDefault):
 
     def __call__(self, serializer_field):
         instance = super().__call__(serializer_field)
-
         serialized = ATPSerializer(instance)
-
-        print("RETRIEVED SERIALIZED DATA OF ATP HIDDEN FIELD", serialized.data)
-
         return serialized.data
 
 
@@ -85,23 +79,13 @@ class LeadUpdatePropsSerializer(LeadSerializer):
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-        self.Meta.fields = (
-            "id", 
-            "atp_id",
-            "route_no",
-            "route_wiki_url", 
-            "capacity_class", 
-            "units_per_route", 
-            "unit_set",
-            "date"
-        )
+        self.Meta.exclude = ("atp",)
 
 
 class LeadUnitSetUpdateSerializer(serializers.Serializer):
 
     units = serializers.ListField(child=serializers.IntegerField(), required=False)
     change_type = serializers.ChoiceField(choices=('add', 'remove'), default='add')
-
 
 
 class UnitsAtLeadSerializer(serializers.Serializer):
@@ -116,15 +100,12 @@ class UnitsAtLeadSerializer(serializers.Serializer):
 
         return serializer.data
 
+
 class UnitUpdateSerializer(UnitSerializer):
 
     id = serializers.IntegerField(read_only=True)
     atp_id = serializers.IntegerField(read_only=True)
     bus_id = serializers.IntegerField()
-
-    def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs)
-        self.Meta.fields = ("id", "atp_id", "lead_id", "bort", "color", "bus", "bus_id")
 
 
 class UnitCreateSerializer(serializers.ModelSerializer):
@@ -134,18 +115,10 @@ class UnitCreateSerializer(serializers.ModelSerializer):
     id = serializers.IntegerField(read_only=True)
     atp_id = serializers.IntegerField(read_only=True)
 
-
-    '''
-    def set_atp(self,):
-        request = self.context.get('request')
-        atp_id = request.user.id
-        return atp_id
-    '''
-
-
     class Meta:
         model = models.Unit
         exclude = ("lead",)
+
 
 class MessageSerializer(serializers.ModelSerializer):
 
@@ -155,10 +128,10 @@ class MessageSerializer(serializers.ModelSerializer):
     atp_id = serializers.IntegerField(read_only=True)
     atp_name = serializers.CharField(read_only=True, source='get_atp_name')
 
-    
     class Meta:
         model = models.Message
         fields = '__all__'
+
 
 class MessageCreateSerializer(serializers.ModelSerializer):
 
@@ -167,7 +140,6 @@ class MessageCreateSerializer(serializers.ModelSerializer):
     class Meta:
         model = models.Message
         fields = '__all__'
-
 
 
 class RegistrationSerialzier(serializers.ModelSerializer):
@@ -198,12 +170,8 @@ class RegistrationSerialzier(serializers.ModelSerializer):
     
     def create(self, validated_data):
         validated_data.pop("password_2")
-
-        print("vdata", validated_data)
-
         user = self.Meta.model(username=validated_data['username'])
         user.set_password(validated_data['password'])
-
         user.save()
     
         return user

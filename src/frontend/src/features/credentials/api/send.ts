@@ -45,8 +45,6 @@ async function logout(){
         store.getState().DELETE_TOKEN()
         return true
     }
-
-    console.log(`detail: ${response.data.detail}`)
     return false
 }
 

@@ -63,3 +63,9 @@
     import { to } from '@shared/api/schema/requests'
 
 </script>
+
+<style
+    lang="css"
+    :module="styles"
+>
+</style>

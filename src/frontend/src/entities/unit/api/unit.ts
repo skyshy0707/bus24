@@ -43,9 +43,6 @@ class UnitApi implements CrudModel{
 
     async edit(data: FormData, id: Id, ){
         const validated = Object.fromEntries(data.entries()) as Partial<UnitEdit>
-        for (let item of data.entries()){
-            console.log(`UNIT EDIT DATA: ${item}`)
-        }
         const response = await request({
             url: `unit/${id}/edit`,
             data: validated,

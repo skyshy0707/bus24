@@ -46,12 +46,10 @@ import { defineComponent, type PropType, reactive } from 'vue'
 
 import type { CrudModel } from "@shared/types/interfaces"
 import type { Id } from "@shared/types/types"
-import { isEqual } from "@shared/lib/format"
 
 import { UnitApi } from "entities/unit/api/unit"
 import type { UnitState, UnitView } from 'entities/unit/types'
 import type { LeadState } from 'entities/lead/types'
-
 
 import { changeLeadUnitSet } from "features/attach-detach-unitset-btn/api/change"
 import type { ChangeUnitSetParams } from "features/attach-detach-unitset-btn/types"
@@ -60,7 +58,6 @@ import { ModelControlPanel } from "widgets/model-control-panel"
 import type { SafeBaseComponent } from "widgets/types"
 
 const unitApi = reactive(new UnitApi())
-
 
 const UnitPanel = defineComponent({
 
@@ -114,12 +111,8 @@ const UnitPanel = defineComponent({
         },
     }, 
     methods: {
-        //...(BaseCrud.methods as Record<string, Function>),
         async addUnitsToLead(data: ChangeUnitSetParams){
             const lead = this.$lead.lead
-            console.log(`addUnitsToLead: ${Object.keys(data)}`)
-            console.log(`addUnitsToLead data.units: ${data.units}`)
-
             const response = await changeLeadUnitSet(lead.id, data)
 
             if (response.status == 200){

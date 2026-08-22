@@ -5,10 +5,6 @@ import { Profile } from "entities/profile"
 import { Unit } from "entities/unit"
 
 
-async function toDefaultImport<T>(importPromise: Promise<T>, exportName: keyof T){
-    return importPromise.then(module => ({ default: module[exportName as any] }))
-}
-
 export const settings = [
     {
         model: 'lead',

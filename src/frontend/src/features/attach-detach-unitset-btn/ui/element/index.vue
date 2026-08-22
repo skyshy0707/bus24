@@ -46,10 +46,7 @@
         methods: {        
             async toExternalComponent(event: Event){
                 event.preventDefault()
-                console.log(`SendSet.toExternalComponent: ${this.set}`)
-                console.log(`where emit: ${this.where_emit}`)
 
-           
                 this.$emit(this.where_emit, {
                     change_type: this.change_type,
                     units: this.set
@@ -59,7 +56,7 @@
                 return this.button_send_set == '🚌➕' ? 'plus-items' : 'minus-items'
             }
         },
-        watch: {
+        /*watch: {
             set: {
                 handler(newPropValue){
                     if (newPropValue) {
@@ -69,6 +66,6 @@
                 deep: true,
                 immediate:true,
             }
-        }
+        }*/
     })
 </script>

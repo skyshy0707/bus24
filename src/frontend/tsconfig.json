@@ -1,5 +1,6 @@
 {
     "compilerOptions": {
+        "skipLibCheck": true,
         "noEmit": true,
         "noImplicitAny": false,
         "sourceMap": true,
@@ -35,7 +36,10 @@
             "features/*": ["./src/features/*"],
             "entities/*": ["./src/entities/*"],
             "@shared/*": ["./src/shared/*"]
-        }
+        },
+        "plugins": [
+            { "name": "@vue/typescript-plugin" }
+        ]
     },
     "include": [
         "./src/**/*"

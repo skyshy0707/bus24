@@ -6,7 +6,6 @@ const isEqual = (objA: object, objB: object) => {
         return false
     }
     for (let key of Object.keys(objA)){
-        console.log(`a: ${objA[key]} b: ${objB[key]}`)
         if (objA[key] !== objB[key]){
             return false
         }
@@ -16,9 +15,6 @@ const isEqual = (objA: object, objB: object) => {
 
 function parseDate(datetime: string){
     const date = new Date(datetime)
-
-    console.log(`date: ${date}, orr: ${datetime}`)
-    //console.log(`object.date: ${this.object.date}, object.route_wiki_url: ${this.object.route_wiki_url}`)
     return date.toLocaleDateString() + '  ' + date.toLocaleTimeString().slice(0, 5)
 }
 

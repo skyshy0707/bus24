@@ -12,14 +12,8 @@
     import { defineComponent, type PropType } from 'vue'
 
     import * as validators from "@shared/types/validators"
-    import store from "@shared/model/store"
-    import { type DjangoErrorData } from "@shared/types/types"
 
-    import type { ProfileView, Profile } from "entities/profile/types"
-    import { getProfile } from "entities/profile/api/profile"
-    import profile from "entities/profile/model/store"
-
-    
+    import type { ProfileView } from "entities/profile/types"
 
     export default defineComponent({
 
@@ -61,5 +55,4 @@
             }
         }
     })
-    
 </script>

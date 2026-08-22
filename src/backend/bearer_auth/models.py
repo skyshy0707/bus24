@@ -4,9 +4,7 @@ import uuid
 from django.db import models
 
 from bearer_auth import settings
-
 from device.models import UserDevice
-
 from shared.utils import now
 
 # Create your models here.

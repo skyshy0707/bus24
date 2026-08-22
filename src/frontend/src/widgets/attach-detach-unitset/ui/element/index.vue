@@ -90,13 +90,10 @@ const ChangeUnitSet =  defineComponent({
     },
     methods: {
         updateSet(data){
-            console.log(`newValue: ${data}`)
             this.$emit('update:set', data)
             this.copySet = data
         },
         sendSet(data: ChangeUnitSetParams){
-            console.log(`ChangeUnitSet.sendSet: ${Object.keys(data)}`)
-            console.log(`data.units: ${data.units}`)
             this.$emit(
                 this.where_emit, data
             )

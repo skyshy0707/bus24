@@ -51,8 +51,9 @@
 <script lang="ts">
     import { defineComponent, type PropType, reactive } from 'vue'
 
-    import type { Id, Item } from "@shared/types/types"
     import type { CrudModel } from "@shared/types/interfaces"
+    import type { Id } from "@shared/types/types"
+    
     
     import { LeadApi } from 'entities/lead/api/lead'
     import type { LeadState, LeadView } from 'entities/lead/types';
@@ -87,8 +88,6 @@
         ],
 
         data(){
-
-
             return {
                 leadApi,
                 unitItemView: {
@@ -101,8 +100,6 @@
                 }
             }
         },
-
-        
         computed: {
             leadProvided(){
                 if (this.objectValue.id > 0){
@@ -125,7 +122,7 @@
         },
         methods: {
             async removeBusesFromLead(data: ChangeUnitSetParams){
-                const response = await changeLeadUnitSet(this.objectValue.id, data)
+                await changeLeadUnitSet(this.objectValue.id, data)
             },
             async view(id: Id){
                 const response = await ModelControlPanel.methods?.view?.call(this, id)
@@ -142,8 +139,6 @@
                 const response = await unitApi.get(id)
                 const object = response.data
 
-                console.log(`тут что-то меняется - автобус id: ${object.id}`)
-
                 if (object) { 
                     this.unit.SET_UNIT(object)
                 }
@@ -153,9 +148,7 @@
         watch: {
             $lead: {
                 handler(newValue){
-                    console.log(`Handle $lead in widgets.lead.component`)
                     if (newValue){
-                        console.log(`lead newValue: ${newValue}`)
                         this.objectValue = newValue.lead
                     }
                 },

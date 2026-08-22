@@ -96,9 +96,6 @@ export default defineComponent({
         }
     },
     data() {
-
-        console.log(`actionTypeValue: ${this.actionTypeValue}`)
-        console.log(`logged: ${this.logged}`)
         return {
             credentialsModel: this.credentials,
             actionTypeValue: this.actionType,
@@ -125,22 +122,14 @@ export default defineComponent({
             )
 
             if (response.status == 201){
-                //this.$user.SET_TOKEN(response.data.token)
-                //this.$user.SET_REFRESH_TOKEN(response.data.refresh_token)
                 this.$router.push("/")
             }
             this.error = response.data.message || response.statusText
-            console.log(`message: ${response.statusText}`)
         },
 
         async signup(event: Event){
             event.preventDefault()
             const data = (this.cleanForm(event) as Partial<Signup>) as Signup
-
-            console.log(`data: ${data}, ${Object.keys(data)}`)
-
-            
-
             const response = await api.signup(
                 data
             )
@@ -156,7 +145,6 @@ export default defineComponent({
             }
         },
         async logout(){
-            //this.$user.DELETE_TOKEN()
             await api.logout()
         }
     }

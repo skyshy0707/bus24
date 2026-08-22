@@ -29,12 +29,7 @@ export default defineComponent({
     ],
     computed: {
         logged() {
-            const b = this.user.token
-
-            console.log(`b: ${b}`)
-            const logGed = Boolean(this.user.token)
-            console.log(`logGed: ${logGed}`)
-            return logGed
+            return Boolean(this.user.token)
         }
     }
 })

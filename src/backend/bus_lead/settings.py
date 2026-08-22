@@ -140,11 +140,3 @@ PASSWORD_HASHERS = [
 REST_FRAMEWORK = {
     'EXCEPTION_HANDLER': 'api.exceptions.custom_exception_handler'
 }
-"""
-CORS_ALLOWED_ORIGINS = [
-    "http://localhost:8700"
-]
-"""
-
-#AUTHENTICATION_BACKENDS = []
-#CSRF_COOKIE_NAME = "bus24ATP"

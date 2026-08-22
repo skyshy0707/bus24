@@ -4,23 +4,9 @@ import type { AxiosResponse } from 'axios'
 import { getAuthHeader } from "@shared/api/schema/api"
 import { empty } from "@shared/model/constants"
 import storage from "@shared/model/store"
-import type { AuthorizationHeader, Request, WSRequest } from "@shared/types/interfaces"
+import type { AuthorizationHeader, WSRequest } from "@shared/types/interfaces"
 import type { Response } from "@shared/types/types"
 
-// Add device memory to all HTTP requests for consistent fingerprinting
-// This ensures the same device fingerprint is used for both HTTP and WebSocket requests
-/*axios.interceptors.request.use(
-    (config) => {
-        const deviceMemory = (navigator as any).deviceMemory
-        if (deviceMemory) {
-            config.headers['X-Sec-CH-Device-Memory'] = deviceMemory.toString()
-        }
-        return config
-    },
-    (error) => {
-        return Promise.reject(error)
-    }
-)*/
 
 async function refreshToken(){
 
@@ -47,10 +33,6 @@ async function refreshToken(){
 
 function getHeaders(auth: boolean, headers?: AuthorizationHeader & Record<string, string> | undefined){
     const deviceMemory = (navigator as any).deviceMemory
-
-
-    console.log(`DEVICE MEMORY SIZE - INSERTED FROM NAVIGATOR: ${deviceMemory}`)
-
     return {
         "Content-Type": "application/json",
         "X-Sec-CH-Device-Memory": deviceMemory ? deviceMemory.toString() : '',
@@ -117,7 +99,6 @@ async function getClientIP(): Promise<string> {
         })
         
         peerConnection.createDataChannel('')
-        
         peerConnection.createOffer()
             .then(offer => peerConnection.setLocalDescription(offer))
             .catch(reject)
@@ -140,7 +121,7 @@ async function getClientIP(): Promise<string> {
         setTimeout(() => {
             peerConnection.close()
             reject(new Error('IP detection timeout'))
-        }, 5000)
+        }, 0)
     })
 }
 
@@ -223,7 +204,6 @@ async function wsRequest({
         }
 
         socket.addEventListener('message', messageHandler)
-
         socket.addEventListener('error', (event) => { 
             console.error(`WebSocket error occur - details: ${event}`)
             reject(new Error('WebSocket error'))
@@ -257,7 +237,6 @@ async function wsRequest({
         socket.send(JSON.stringify(packet))
     })
 }
-
 
 
 export {

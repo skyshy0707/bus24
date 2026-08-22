@@ -39,8 +39,7 @@ input, textarea {
 <script lang="ts">
 
 
-import { defineComponent, type PropType } from 'vue'
-
+import { defineComponent } from "vue"
 
 import { ProfileStore } from "entities/profile/ui/Profile"
 import { Header } from "features/header"
