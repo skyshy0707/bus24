@@ -28,6 +28,7 @@
         flex-direction: column;
         margin-right: 2em;
         background-image: linear-gradient(to top, rgb(141, 119, 148), #280049a2, rgb(28, 0, 46));
+        height: calc(100vh - 20px)
     }
 
     .sidebar-btn{

@@ -27,4 +27,4 @@ class IsMessageToMe(BasePermission):
 
     def has_object_permission(self, request: request.Request, view, obj):
 
-        obj.to == get_profile_id(request)
+        return get_profile_id(request) in obj.to.values("id")

@@ -2,9 +2,7 @@
 
     <router-view/>
 
-    <div
-        class="wrapper"
-    >
+    <Wrapper>
         <sidebar>
         </sidebar>
 
@@ -27,7 +25,7 @@
             </ProfilePanel>
         </div>
         
-    </div>
+    </Wrapper>
     
 </template>
 
@@ -41,17 +39,6 @@
         margin: 0.5em;
         padding-left: 2em;
     }
-    .wrapper {
-        display: flex;
-        flex-direction: row;
-    }
-
-    @media (max-width: 460px){
-        .wrapper {
-            flex-direction : column;
-        }
-    }
-
     @media (max-width: 1024px){
         .components{
             flex-direction: column;
@@ -65,6 +52,8 @@
 
 import { defineComponent } from 'vue'
     
+import { Wrapper } from '@shared/ui/themes'
+
 import { getProfile, ProfileApi } from 'entities/profile/api/profile'
 import type { Profile } from 'entities/profile/types';
 import profile from "entities/profile/model/store"
@@ -75,13 +64,15 @@ import { MessagePanel } from "widgets/message"
 import { ProfilePanel } from "widgets/profile"
 import { UnitPanel } from "widgets/unit"
 
+
 export default defineComponent({
     components: {
         LeadPanel,
         MessagePanel,
         ProfilePanel,
         UnitPanel,
-        sidebar
+        sidebar,
+        Wrapper
     }, 
     inject: {
         $user: {
