@@ -24,8 +24,10 @@
   "devDependencies": {
     "@vue/typescript-plugin": "3.3.11",
     "npm-run-all2": "9.0.1",
+    "typescript": "6.0.2",
     "vite": "7.3.5",
     "vue-tsc": "3.3.3"
+
   },
   "keywords": [],
   "author": "",
