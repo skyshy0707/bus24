@@ -7,7 +7,7 @@
     "dev": "vite --host",
     "build": "run-p type-check \"build-only {@}\" --",
     "build-only": "vite build",
-    "prod": "npm run build:prod",
+    "prod": "npx --yes typescript@latest --version && vue-tsc --noEmit && vite build --mode production",
     "type-check": "vue-tsc --noEmit -p tsconfig.json",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
