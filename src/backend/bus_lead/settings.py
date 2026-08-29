@@ -26,7 +26,7 @@ SECRET_KEY = 'django-insecure-r#*)9iqsbj)b^6(ru=i+ev=il631+g^**!l@!3p8eq%p0m6p1k
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = os.environ.get('DEBUG', True)
 
-ALLOWED_HOSTS = ['172.24.0.3', 'backend', 'localhost', '127.0.0.1']
+ALLOWED_HOSTS = ['172.24.0.3', 'backend', 'localhost', '127.0.0.1', 'bus24-production.up.railway.app']
 
 AUTH_USER_MODEL = 'api.User'
 
