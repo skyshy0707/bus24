@@ -9,45 +9,47 @@
         >
             +
         </button>
-        <form 
-            v-if="form"
-            class="form-model"
-            @submit.prevent="async ($event) => { await action($event) }"
-        >
-            <component 
-                class="model"
-                :is="getComponentByModel(crudModel.model)"
-                v-model:object="objectValue"
-                :actionType="actionTypeValue"
+        <FormModel>
+            <form 
+                v-if="form"
+                class="form-model"
+                @submit.prevent="async ($event) => { await action($event) }"
             >
-            </component>
-            <button 
-                v-if="actionTypeValue != undefined && ['edit', 'view'].includes(actionTypeValue) && isOwn()" 
-                @click="() => actionTypeValue = actionTypeValue == 'edit' ? 'view' : 'edit'" 
-                type="button"
-                class="action-btn"
-            >✏️ EDIT
-            </button>
-            <button 
-                v-if="actionTypeValue == 'edit' && isOwn()"
-                type="submit"
-                :disabled="isEqual(objectValue, printObject)"
-            >✔️ APPLY
-            </button>
-            <button
-                v-if="actionTypeValue != 'create' && isOwn()"
-                @click="() => DELETE(objectValue.id)"
-                type="button"
-                class="action-btn"
-            >❌ DELETE
-            </button>
-            <button
-                v-if="actionTypeValue == 'create' && addNew"
-                type="submit"
-                class="action-btn"
-            >💾 SAVE
-            </button>
-        </form>
+                <component 
+                    class="model"
+                    :is="getComponentByModel(crudModel.model)"
+                    v-model:object="objectValue"
+                    :actionType="actionTypeValue"
+                >
+                </component>
+                <button 
+                    v-if="actionTypeValue != undefined && ['edit', 'view'].includes(actionTypeValue) && isOwn()" 
+                    @click="() => actionTypeValue = actionTypeValue == 'edit' ? 'view' : 'edit'" 
+                    type="button"
+                    class="action-btn"
+                >✏️ EDIT
+                </button>
+                <button 
+                    v-if="actionTypeValue == 'edit' && isOwn()"
+                    type="submit"
+                    :disabled="isEqual(objectValue, printObject)"
+                >✔️ APPLY
+                </button>
+                <button
+                    v-if="actionTypeValue != 'create' && isOwn()"
+                    @click="() => DELETE(objectValue.id)"
+                    type="button"
+                    class="action-btn"
+                >❌ DELETE
+                </button>
+                <button
+                    v-if="actionTypeValue == 'create' && addNew"
+                    type="submit"
+                    class="action-btn"
+                >💾 SAVE
+                </button>
+            </form>
+        </FormModel>
         <p
             v-if="error"
         >
@@ -109,6 +111,7 @@
     import { getComponentByModel } from "entities/model_component/lib/component/component"
     import { Crud } from "@shared/model/crud"
     import type { CrudModel } from "@shared/types/interfaces"
+    import { FormModel } from "@shared/ui/themes"
     import type { Id, Item } from "@shared/types/types"
     import * as validators from "@shared/types/validators"
     import { isEqual } from "@shared/lib/format"
@@ -117,7 +120,9 @@
     //:action-type="actionTypeValue"
     //const objectValue = makeReactive(`objectValue${this.crudModel.model}`, )
     export default defineComponent({
-
+        components: {
+            FormModel,
+        },
         data() {
             console.log(`DATA  RUN`)
             return {

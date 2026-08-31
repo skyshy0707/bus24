@@ -27,47 +27,71 @@
     <h5>
         {{ actionTypeValue }}
     </h5>
-
-    <form 
-        v-if="actionTypeValue"
-        @submit.prevent="actionTypeValue == 'signin' ? signin($event) : signup($event)"
-    >
-        <input 
-            name="email"
-            type="email"
-            :value="credentialsModel.email"
-            required
-        />
-        <input
-            name="password"
-            type="password"
-            :value="credentialsModel.password"
-            required
-        />
-        <input
-            v-if="actionTypeValue == 'signup'"
-            name="password_2"
-            type="password"
-            :value="credentialsModel.password_2"
-            required
-        />
-
-        <button 
-            type="submit"
+    <FormModel>
+        <form 
+            v-if="actionTypeValue"
+            @submit.prevent="actionTypeValue == 'signin' ? signin($event) : signup($event)"
         >
-            {{ actionTypeValue }}
-        </button>
-        <p 
-            v-if="error"
-        >
-            {{ error }}
-        </p>
-    </form>
+
+            <div>
+                <div
+                    class="model-field"
+                >
+                    <input 
+                        class="model-field"
+                        name="email"
+                        type="email"
+                        :value="credentialsModel.email"
+                        required
+                    />
+                </div>
+             </div>
+            <div>
+                <div
+                    class="model-field"
+                >
+                    <input
+                        name="password"
+                        type="password"
+                        :value="credentialsModel.password"
+                        required
+                    />
+                </div>
+            </div>
+             <div>
+                <div
+                    class="model-field"
+                >
+                    <input
+                        v-if="actionTypeValue == 'signup'"
+                        name="password_2"
+                        type="password"
+                        :value="credentialsModel.password_2"
+                        required
+                    />
+                </div>
+            </div>
+
+            <button 
+                class="action-btn"
+                type="submit"
+            >
+                {{ actionTypeValue }}
+            </button>
+            <p 
+                v-if="error"
+            >
+                {{ error }}
+            </p>
+        </form>
+    </FormModel>
 </template>
 
 <script lang="ts">
 
 import { defineComponent, type PropType, reactive } from 'vue'
+
+import { FormModel } from "@shared/ui/themes"
 
 import * as api from "features/credentials/api/send"
 import type { Credentials, Signin, Signup } from "features/credentials/types"
@@ -79,7 +103,9 @@ const defaultCredentials = reactive({
     password_2: ""
 })
 export default defineComponent({
-    
+    components: {
+        FormModel,
+    },
     props: {
         credentials: {
             type: Object as PropType<Credentials>, 
@@ -130,9 +156,7 @@ export default defineComponent({
         async signup(event: Event){
             event.preventDefault()
             const data = (this.cleanForm(event) as Partial<Signup>) as Signup
-            const response = await api.signup(
-                data
-            )
+            const response = await api.signup(data)
 
             if (response.status == 201){
                 this.actionTypeValue = "signin"
