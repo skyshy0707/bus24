@@ -30,13 +30,24 @@
     <FormModel>
         <form 
             v-if="actionTypeValue"
+            class="form-model"
+            style="height: 215px"
             @submit.prevent="actionTypeValue == 'signin' ? signin($event) : signup($event)"
         >
-
-            <div>
-                <div
-                    class="model-field"
-                >
+            <div
+                class="model"
+                style="flex-grow: 1; "
+            >
+                <div>
+                    <div
+                        class="model-field"
+                    >
+                        <span 
+                            for="email"
+                        >
+                            E-mail:
+                        </span>
+                    </div>
                     <input 
                         class="model-field"
                         name="email"
@@ -45,11 +56,16 @@
                         required
                     />
                 </div>
-             </div>
-            <div>
-                <div
-                    class="model-field"
-                >
+                <div>
+                    <div
+                        class="model-field"
+                    >
+                        <span 
+                            for="password"
+                        >
+                            Пароль:
+                        </span>
+                    </div>
                     <input
                         name="password"
                         type="password"
@@ -57,13 +73,19 @@
                         required
                     />
                 </div>
-            </div>
-             <div>
                 <div
-                    class="model-field"
+                    v-if="actionTypeValue == 'signup'"
                 >
+                    <div
+                        class="model-field"
+                    >
+                        <span 
+                            for="password2"
+                        >
+                            Повтор пароля:
+                        </span>
+                    </div>
                     <input
-                        v-if="actionTypeValue == 'signup'"
                         name="password_2"
                         type="password"
                         :value="credentialsModel.password_2"
@@ -75,6 +97,7 @@
             <button 
                 class="action-btn"
                 type="submit"
+                style="flex-shrink: 0; margin-top: 15px;"
             >
                 {{ actionTypeValue }}
             </button>

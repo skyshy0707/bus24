@@ -9,7 +9,7 @@
         border-radius: 15%;
         width: 90px
     }
-    
+
     .apply-btn{
         margin: 4px;
         background-color: rgba(59, 58, 58, 0.6);
@@ -19,6 +19,9 @@
     }
 
     .form-model {
+        display: flex;
+        flex-direction: column;
+        box-sizing: border-box;
         margin: 4px;
         background-color: rgba(168, 141, 173, 0.6);
         border-radius: 10px
