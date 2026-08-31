@@ -87,11 +87,13 @@ export default defineComponent({
     },
     async created(){
         const profile = await this.retrieveProfile()
+
+        if (!this.$user.user){
+            this.$router.push("/")
+        }
         if (profile){
             this.profileData = profile
-            return
         }
-        this.$router.push("/profile")
     },
     methods: {
         async retrieveProfile(){
