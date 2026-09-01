@@ -32,6 +32,7 @@
                 <button 
                     v-if="actionTypeValue == 'edit' && isOwn()"
                     type="submit"
+                    class="apply-btn"
                     :disabled="isEqual(objectValue, printObject)"
                 >✔️ APPLY
                 </button>

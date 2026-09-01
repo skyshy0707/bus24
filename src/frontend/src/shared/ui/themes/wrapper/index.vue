@@ -11,7 +11,8 @@
     .wrapper {
         display: flex;
         flex-direction: row;
-        height: calc(100vh - 18px)
+        min-height: calc(100vh - 18px);
+        align-items: stretch
     }
 
     @media (max-width: 460px){

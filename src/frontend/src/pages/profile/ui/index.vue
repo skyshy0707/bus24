@@ -88,7 +88,7 @@ export default defineComponent({
     async created(){
         const profile = await this.retrieveProfile()
 
-        if (!this.$user.user){
+        if (!this.$user.token){
             this.$router.push("/")
         }
         if (profile){

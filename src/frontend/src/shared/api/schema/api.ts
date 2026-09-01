@@ -8,7 +8,9 @@ function getAuthHeader(): AuthorizationHeader | undefined{
 }
 
 function getWsUrl(path: string){
-    return `ws://${import.meta.env.VITE_DOMAIN}/${path}`
+    const version = import.meta.env.VITE_API_MODE == 'prod' ? 'wss' : 'ws'
+    
+    return `${version}://${import.meta.env.VITE_DOMAIN}/${path}`
 }
 
 export {

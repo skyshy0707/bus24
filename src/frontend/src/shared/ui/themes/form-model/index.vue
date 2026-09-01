@@ -14,7 +14,7 @@
         margin: 4px;
         background-color: rgba(59, 58, 58, 0.6);
         border-radius: 15%;
-        color: white;
+        color: rgb(0, 27, 53);
         width: 90px
     }
 
