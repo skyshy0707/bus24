@@ -4,5 +4,11 @@
   "assets": {
     "directory": "./dist/",
     "not_found_handling": "single-page-application"
+  },
+  "vars": {
+    "VITE_API_MODE": "prod",
+    "VITE_DOMAIN": "bus24-production.up.railway.app",
+    "VITE_API_URL": "https://bus24-production.up.railway.app/api",
+    "VITE_BASE_URL": "/"
   }
 }
