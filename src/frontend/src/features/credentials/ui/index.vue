@@ -1,5 +1,7 @@
 <template>
-    <div>
+    <div
+        class="auth-panel"
+    >
         <button
             v-if="!logged"
             type="button"
@@ -24,9 +26,11 @@
     </div>
     
     
-    <h5>
-        {{ actionTypeValue }}
-    </h5>
+    <h4
+        class="action-title"
+    >
+        {{ actionTypeValueForm }}
+    </h4>
     <FormModel>
         <form 
             v-if="actionTypeValue"
@@ -67,6 +71,7 @@
                         </span>
                     </div>
                     <input
+                        class="model-field"
                         name="password"
                         type="password"
                         :value="credentialsModel.password"
@@ -86,6 +91,7 @@
                         </span>
                     </div>
                     <input
+                        class="model-field"
                         name="password_2"
                         type="password"
                         :value="credentialsModel.password_2"
@@ -110,6 +116,27 @@
     </FormModel>
 </template>
 
+<style lang="css">
+    .action-title{
+        margin-top: 2em
+    }
+    .auth-panel {
+        top: 1.5em;
+        left: 0;
+        background-color:black;
+        position: fixed;
+        max-width: 100vw;
+        width: 100%;
+        display: flex;
+        z-index: 100
+    }
+    .auth-panel > button {
+        margin: 0.2em;
+        background: wheat;
+        font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+        border-radius: 10px
+    }
+</style>
 <script lang="ts">
 
 import { defineComponent, type PropType, reactive } from 'vue'
@@ -149,6 +176,12 @@ export default defineComponent({
             credentialsModel: this.credentials,
             actionTypeValue: this.actionType,
             error: ""
+        }
+    },
+
+    computed: {
+        actionTypeValueForm(){
+            return this.actionTypeValue == 'signin' ? 'Вход' : 'Регистрация'
         }
     },
     methods: {

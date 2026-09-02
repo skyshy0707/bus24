@@ -23,6 +23,7 @@
         flex-direction: column;
         box-sizing: border-box;
         margin: 4px;
+        padding: 0.2em 0;
         background-color: rgba(168, 141, 173, 0.6);
         border-radius: 10px
     }

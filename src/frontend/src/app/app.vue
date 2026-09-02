@@ -13,7 +13,12 @@
 
 <style lang="css">
 
-input, textarea {
+main{
+    margin-top: 50px;
+    min-height: calc(100vh - 50px);
+}
+
+input, textarea, h4 {
     border-radius: 6px;
     margin-left: 0.4em
 }

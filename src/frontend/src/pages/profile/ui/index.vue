@@ -87,12 +87,18 @@ export default defineComponent({
     },
     async created(){
         const profile = await this.retrieveProfile()
-
+        console.log(`TOKEN IN PROFILE: ${this.$user.token}`)
         if (!this.$user.token){
             this.$router.push("/")
         }
         if (profile){
             this.profileData = profile
+        }
+    },
+    updated(){
+        console.log(`TOKEN IN PROFILE: ${this.$user.token}`)
+        if (!this.$user.token){
+            this.$router.push("/")
         }
     },
     methods: {
