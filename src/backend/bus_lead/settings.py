@@ -94,9 +94,9 @@ CHANNEL_LAYERS = {
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django_libsql_backend',
+        'ENGINE': 'django_libsql',
         'NAME': os.environ.get('TURSO_DATABASE_URL'),
-        'PASSWORD': os.environ.get('TURSO_AUTH_TOKEN')
+        'AUTH_TOKEN': os.environ.get('TURSO_AUTH_TOKEN')
     }
 }
 
