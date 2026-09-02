@@ -123,7 +123,7 @@
     .auth-panel {
         top: 1.5em;
         left: 0;
-        background-color:black;
+        background-color: rgb(87, 87, 87);
         position: fixed;
         max-width: 100vw;
         width: 100%;
@@ -131,7 +131,7 @@
         z-index: 100
     }
     .auth-panel > button {
-        margin: 0.2em;
+        margin: 0.2em 0.5em;
         background: wheat;
         font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
         border-radius: 10px
@@ -180,8 +180,11 @@ export default defineComponent({
     },
 
     computed: {
-        actionTypeValueForm(){
-            return this.actionTypeValue == 'signin' ? 'Вход' : 'Регистрация'
+        actionTypeValueForm() {
+            if (!this.actionTypeValue){
+                return ""
+            }
+            return this.actionTypeValue == 'signin' ? 'Вход' : 'Регистрация' 
         }
     },
     methods: {
@@ -204,6 +207,7 @@ export default defineComponent({
             )
 
             if (response.status == 201){
+                this.actionTypeValue = ""
                 this.$router.push("/")
             }
             this.error = response.data.message || response.statusText

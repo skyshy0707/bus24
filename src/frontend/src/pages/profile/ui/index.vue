@@ -32,6 +32,7 @@
 <style lang="css">
     .components{
         display: flex;
+        margin-left: 120px;
         flex-direction: row;
     }
 
@@ -44,6 +45,13 @@
             flex-direction: column;
         }
 
+    }
+
+    @media (max-width: 460px){
+        .components{
+            margin-left: 0.5em;
+            margin-top: 1.2em
+        }
     }
 
 </style>

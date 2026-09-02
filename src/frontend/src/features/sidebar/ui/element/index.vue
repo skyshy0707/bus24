@@ -29,7 +29,10 @@
         flex-shrink: 0;
         margin-right: 2em;
         background-image: linear-gradient(to top, rgb(141, 119, 148), #280049a2, rgb(28, 0, 46));
-        height: auto
+        height: auto;
+        min-height: 100vh;
+        position: fixed;
+        overflow-y: auto;
     }
 
     .sidebar-btn{
@@ -50,6 +53,8 @@
         .sidebar {
             flex-direction: row;
             flex: 0 0 100%;
+            min-height: auto;
+            min-width: 100vw
         }
         .sidebar-btn{
             width: 100%;
