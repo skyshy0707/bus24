@@ -123,6 +123,7 @@
     .auth-panel {
         top: 1.5em;
         left: 0;
+        right: 0;
         background-color: rgb(87, 87, 87);
         position: fixed;
         max-width: 100vw;

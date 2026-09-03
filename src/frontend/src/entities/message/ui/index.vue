@@ -24,10 +24,11 @@
 
             <button
                 v-if="actionType == 'view'"
+                class="switch-btn"
                 type="button"
                 @click="viewLead(object.lead.id)"
             >
-                LEAD
+                📰 LEAD
             </button>
         </div>
         <div
@@ -75,6 +76,7 @@
         </div>
         <span 
             v-if="actionType === 'edit' || actionType === 'view'" 
+            class="model-field"
         >
             Создан: {{ parseDate(object.date) }}
         </span>

@@ -40,7 +40,7 @@
         color: white;
         border-radius : 6px;
         height: 1.5rem;
-        width: 93%;
+        width: 92%;
         margin: 0.5em;
         padding: 6px;
         text-align: center;

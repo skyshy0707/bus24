@@ -3,7 +3,7 @@
 
     <div class="shoutbox">
 
-        <p>Шаут:</p>
+        <p>Шауты сообщений:</p>
         <Scroll
             :endpoint="'chats'"
             :enabledCrud="true"
