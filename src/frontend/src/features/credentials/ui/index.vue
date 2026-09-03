@@ -126,7 +126,7 @@
         right: 0;
         background-color: rgb(87, 87, 87);
         position: fixed;
-        max-width: 100vw;
+        min-width: 100vw;
         width: 100%;
         display: flex;
         z-index: 100

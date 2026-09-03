@@ -1,5 +1,4 @@
 
-<!--Object.keys(object).length ? object[select?.fieldName] : object[select?.fieldName]-->
 <template>
     <div
         @scroll="loadFromServer"
@@ -13,10 +12,6 @@
                 <template
                     v-if="contentDraw"
                 >
-                    <!--<p 
-                        style="font-size: 1em;"
-                    >Выбор {{ select?.fieldName }}:
-                    </p>-->
                     <div 
                         class="list"
                         v-for="item in items" :key="item.id"
@@ -69,45 +64,6 @@
                                 @get="view"
                             >
                             </CRUD>
-                            <!--<div
-                                class="actions"
-                            >
-                                <template
-                                    v-if="itemView"
-                                >
-                                    <button
-                                        class="btn"
-                                        v-if="isLink(item[itemView.fieldName])"
-                                        @click="() => to(item[(itemView as ItemView).fieldName])"
-                                        role="button"
-                                    >
-                                        {{ itemView?.description ? itemView.description : '🌍 SOURCE' }}
-                                    </button>
-                                </template>
-                                <button 
-                                    class="btn"
-                                    v-if="enabledSubset"
-                                    type="button"
-                                    @click="() => moveToChangeSet(item.id)"
-                                >
-                                    {{ setSymbolToElement }}
-                                </button>
-                                <button
-                                    class="btn detail-btn"
-                                    type="button"
-                                    @click="() => view(item.id)"
-                                >
-                                    {{ itemView?.icon ? itemView.icon : '' }} {{ itemView && !isLink(item[itemView.fieldName]) ? standardtize(item[itemView.fieldName]) : '' }} DETAIL 
-                                </button>
-                                <button
-                                    class="btn"
-                                    v-if="item.atp_id == $profile?.profile?.id || item.atp == $profile?.profile?.id"
-                                    type="button"
-                                    @click="() => delete_(item.id)"
-                                >
-                                    ❌ DELETE
-                                </button>
-                            </div>-->
                         </template>
                     </div>
                 </template>
@@ -138,45 +94,6 @@
                         @get="view"
                     >
                     </CRUD>
-                    <!--<div
-                        class="actions"
-                    >
-                        <template
-                            v-if="itemView"
-                        >
-                            <button
-                                class="btn"
-                                v-if="isLink(item[itemView.fieldName])"
-                                @click="() => to(item[(itemView as ItemView).fieldName])"
-                                role="button"
-                            >
-                                {{ itemView?.description ? itemView.description : '🌍 SOURCE' }}
-                            </button>
-                        </template>
-                        <button 
-                            class="btn"
-                            v-if="enabledSubset"
-                            type="button"
-                            @click="() => moveToChangeSet(item.id)"
-                        >
-                            {{ setSymbolToElement }}
-                        </button>
-                        <button
-                            class="btn detail-btn"
-                            type="button"
-                            @click="() => view(item.id)"
-                        >
-                            {{ itemView?.icon ? itemView.icon : '' }} {{ itemView && !isLink(item[itemView.fieldName]) ? standardtize(item[itemView.fieldName]) : '' }} DETAIL 
-                        </button>
-                        <button
-                            class="btn"
-                            v-if="item.atp_id == $profile?.profile?.id || item.atp == $profile?.profile?.id"
-                            type="button"
-                            @click="() => delete_(item.id)"
-                        >
-                            ❌ DELETE
-                        </button>
-                    </div>-->
                 </template>
             </div>
         </div>
@@ -245,7 +162,7 @@
     flex-direction: column; 
     display: flex; 
     overflow-y: scroll; 
-    height: 50px;
+    height: 100px;
 }
 
 .subsetPlus{
@@ -262,7 +179,7 @@
 
 
 .select-from-list {
-    height: 50px;
+    height: 100px;
 }
 
 .list {

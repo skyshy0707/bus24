@@ -18,6 +18,10 @@
         width: 90px
     }
 
+    .apply-btn:enabled {
+        background-color: rgba(59, 58, 58, 0.6);
+    }
+
     .form-model {
         display: flex;
         flex-direction: column;

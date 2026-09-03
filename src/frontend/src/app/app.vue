@@ -1,10 +1,6 @@
 <template>
-    <Header
-        style="margin: 0.5em"
-    ></Header>
-    <main
-        style="margin: 0.5em"
-    >
+    <Header></Header>
+    <main>
         <suspense>
             <RouterView></RouterView>
         </suspense>
