@@ -108,12 +108,13 @@ class UnitUpdateSerializer(UnitSerializer):
     bus_id = serializers.IntegerField()
 
 
-class UnitCreateSerializer(serializers.ModelSerializer):
+class UnitCreateSerializer(UnitSerializer):
 
     atp = serializers.HiddenField(default=fields.ATPIdDefault())
 
     id = serializers.IntegerField(read_only=True)
     atp_id = serializers.IntegerField(read_only=True)
+    bus_id = serializers.IntegerField()
 
     class Meta:
         model = models.Unit

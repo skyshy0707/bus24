@@ -180,7 +180,7 @@ class BusUnitMixin:
         permissions.IsAuthenticated,
     ]
 
-class BusUnitCrudMixin(BusUnitMixin):
+class BusUnitOwnMixin(BusUnitMixin):
     permission_classes = [
         permissions.IsAuthenticated,
         permissions.IsOwner
@@ -189,7 +189,7 @@ class BusUnitCrudMixin(BusUnitMixin):
     queryset = models.Unit.objects.all()
 
 
-class BusUnitView(BusUnitCrudMixin, generics.RetrieveAPIView):
+class BusUnitView(BusUnitOwnMixin, generics.RetrieveAPIView):
     serializer_class = serializers.UnitSerializer
 
 class BusUnitCreate(BusUnitMixin, generics.CreateAPIView):
@@ -197,12 +197,12 @@ class BusUnitCreate(BusUnitMixin, generics.CreateAPIView):
     serializer_class = serializers.UnitCreateSerializer
 
 
-class BusUnitEdit(BusUnitCrudMixin, generics.UpdateAPIView):
+class BusUnitEdit(BusUnitOwnMixin, generics.UpdateAPIView):
 
     serializer_class = serializers.UnitUpdateSerializer
         
  
-class BusUnitDelete(BusUnitCrudMixin, generics.DestroyAPIView):
+class BusUnitDelete(BusUnitOwnMixin, generics.DestroyAPIView):
     pass
     
 
