@@ -1,6 +1,10 @@
 <template>
     <header>
+        <p
+            class="h-description"
+        >
         Свободная рассылка заявок на обслуживание городских автобусных маршрутов
+        </p>
 
         <Credentials
             :logged="logged"
@@ -10,7 +14,11 @@
 </template>
 
 <style lang="css">
-
+.h-description{
+    font: Franklin Gothic Small;
+    margin-left: 0.5em;
+    margin-top: 0.1em 
+}
 </style>
 
 <script lang="ts">

@@ -137,6 +137,17 @@
         font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
         border-radius: 10px
     }
+
+    @media (max-width: 552px){
+        .auth-panel {
+            top: 2.2em
+        }
+    }
+    @media (max-width: 318px){
+        .auth-panel {
+            top: 3.4em
+        }
+    }
 </style>
 <script lang="ts">
 

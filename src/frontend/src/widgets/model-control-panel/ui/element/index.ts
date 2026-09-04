@@ -52,7 +52,6 @@ export const ModelControlPanel = {
             return response
         },
         async delete_(id: Id): Promise<Id>{
-            console.log(`DELETE LAUNCH...`)
             await this.api.delete(id)
             return id
         },
