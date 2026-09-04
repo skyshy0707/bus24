@@ -98,8 +98,9 @@
                 required
             />
         </div>
-        <span 
+        <span
             v-if="actionType === 'edit' || actionType === 'view'" 
+            class="model-field"
         >
             Изменён: {{ parseDate(object.date) }}
         </span>

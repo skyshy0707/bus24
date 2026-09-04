@@ -8,7 +8,8 @@ export const BaseCrud = defineComponent({
     name: 'BaseCrud',
     inheritAttrs: false,
     emits: [
-        'update:set'
+        'update:set',
+        'updateItems'
     ],
     data(){
         return {
@@ -43,13 +44,15 @@ export const BaseCrud = defineComponent({
                     this.$emit(`get`, id)
         },
         delete_(id: Id){
+            console.log(`crud takes parameter of delete operation: ${id}: ${typeof id}`)
             this.model ? 
                 this.$emit(`delete${capitalize(this.model)}`) : 
-                    this.$emit(`delete_`, id)
+                    this.$emit('delete', id)
 
             const reduced = this.getReducedSet(id, this.set)
             this.copySet = reduced
             this.$emit('update:set', [...reduced])
+            this.$emit('updateItems', id)
         }
     },
     watch: {

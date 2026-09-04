@@ -59,8 +59,9 @@
                                 v-model:items="items"
                                 :itemView="itemView"
                                 :set="copySet"
+                                @updateItems="(id: Id) => updateItems(id)"
                                 @update:set="(newValue) => updateSet(newValue)"
-                                @delete_="delete_"
+                                @delete="delete_"
                                 @get="view"
                             >
                             </CRUD>
@@ -90,7 +91,8 @@
                         :itemView="itemView"
                         :set="copySet"
                         @update:set="(newValue) => updateSet(newValue)"
-                        @delete_="delete_"
+                        @updateItems="(id: Id) => updateItems(id)"
+                        @delete="delete_"
                         @get="view"
                     >
                     </CRUD>
@@ -413,6 +415,11 @@
             updateSet(newValue: Array<Item>){
                 this.$emit('update:set', [...newValue]) 
                 this.copySet = [...newValue]
+            },
+            updateItems(id: Id){
+                //console.log(`launch update items: ${id}`)
+                console.log(`items typeof: ${typeof this.items}`)
+                this.items = this.getReducedSet(id, this.items)
             }
         }
     })
