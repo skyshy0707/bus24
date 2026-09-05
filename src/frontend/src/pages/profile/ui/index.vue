@@ -9,7 +9,12 @@
         <div
             v-if="$user?.token"
             class="components"
-        >
+        >   
+            <ProfilePanel
+                :object="profileData"
+            >
+            </ProfilePanel>
+
             <UnitPanel>
             </UnitPanel>
 
@@ -18,11 +23,6 @@
 
             <MessagePanel>
             </MessagePanel>
-
-            <ProfilePanel
-                :object="profileData"
-            >
-            </ProfilePanel>
         </div>
         
     </Wrapper>
@@ -50,7 +50,7 @@
     @media (max-width: 460px){
         .components{
             margin-left: 0.5em;
-            margin-top: 1.2em
+            margin-top: 2em
         }
     }
 

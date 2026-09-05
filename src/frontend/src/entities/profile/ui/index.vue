@@ -1,4 +1,13 @@
 <template>
+    <div
+        class="model-field"
+    >
+        <span 
+            for="name"
+        >
+            Профиль АТП:
+        </span>
+    </div>
     <input 
         type="string" 
         name="name" 
