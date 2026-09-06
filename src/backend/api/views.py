@@ -117,9 +117,10 @@ class UncoveredLeads(generics.ListAPIView):
     serializer_class = serializers.LeadSerializer
 
     def get_queryset(self):
+        atp_id = permissions.get_profile_id(self.request)
         return models.Lead.objects.annotate(
             total_units=Count('unit')
-        ).filter(units_per_route__gt=F('total_units'))
+        ).filter(Q(units_per_route__gt=F('total_units')) & Q(lead__atp__id=atp_id))
 
 
 class ProfileLeadsInfo(generics.ListAPIView):
