@@ -417,8 +417,6 @@
                 this.copySet = [...newValue]
             },
             updateItems(id: Id){
-                //console.log(`launch update items: ${id}`)
-                console.log(`items typeof: ${typeof this.items}`)
                 this.items = this.getReducedSet(id, this.items)
             }
         }

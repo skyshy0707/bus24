@@ -129,9 +129,6 @@
     export default defineComponent({
 
         data(){
-            console.log(`actionType: ${this.actionType}`)
-
-            console.log(`object.bus: ${this.object.bus}, ${this.object.bus?.id}`)
             return {
                 BusLabels, 
                 UnitColorLabels, 

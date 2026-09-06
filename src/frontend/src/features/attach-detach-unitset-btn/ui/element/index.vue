@@ -55,17 +55,6 @@
             getClassBtn(){
                 return this.button_send_set == '🚌➕' ? 'plus-items' : 'minus-items'
             }
-        },
-        /*watch: {
-            set: {
-                handler(newPropValue){
-                    if (newPropValue) {
-                         console.log(`updated prop \/set\/ was sended to SendSet: ${newPropValue}`)
-                    }
-                },
-                deep: true,
-                immediate:true,
-            }
-        }*/
+        }
     })
 </script>
