@@ -35,6 +35,18 @@ input, textarea, h4 {
     box-shadow: inset 1px 1px 2px #ddd
 }
 
+@media (max-width: 350px){
+    .model > div > div, .model-field{
+        width: auto
+    }
+}
+
+@media (max-width: 260px){
+    .model > div > div, .model-field, .field-radio{
+        width: calc(100vw * 0.5)
+    }
+}
+
 </style>
 
 <script lang="ts">
