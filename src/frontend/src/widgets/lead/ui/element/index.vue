@@ -102,7 +102,7 @@
         },
         computed: {
             leadProvided(){
-                if (this.objectValue.id > 0){
+                if (this.objectValue?.id > 0){
                     return true
                 }
                 return false
@@ -112,12 +112,10 @@
             object: {
                 type: Object as PropType<LeadView>,
                 default: () => (leadApi.defaultObject as unknown as LeadView),
-                required: false
             },
             crudModel: {
                 type: Object as PropType<CrudModel>,
                 default: () => (new LeadApi()),
-                required: false
             },
         },
         methods: {

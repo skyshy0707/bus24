@@ -9,6 +9,7 @@
         </span>
     </div>
     <input 
+        class="model-field"
         type="string" 
         name="name" 
         :disabled="actionType === 'view'" 

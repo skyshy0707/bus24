@@ -15,14 +15,18 @@
             >
             </ProfilePanel>
 
-            <UnitPanel>
-            </UnitPanel>
+            <template
+                v-if="$profile?.profile"
+            >
+                <UnitPanel>
+                </UnitPanel>
 
-            <LeadPanel>
-            </LeadPanel>
+                <LeadPanel>
+                </LeadPanel>
 
-            <MessagePanel>
-            </MessagePanel>
+                <MessagePanel>
+                </MessagePanel>
+            </template>
         </div>
         
     </Wrapper>
@@ -83,6 +87,10 @@ export default defineComponent({
         Wrapper
     }, 
     inject: {
+        $profile: {
+            from: '$profile',
+            default: () => null as any
+        },
         $user: {
             from: '$user',
             default: () => null as any

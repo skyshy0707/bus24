@@ -15,7 +15,7 @@
                 class="form-model"
                 @submit.prevent="async ($event) => { await action($event) }"
             >
-                <component 
+                <component
                     class="model"
                     :is="getComponentByModel(crudModel.model)"
                     v-model:object="objectValue"
@@ -81,18 +81,14 @@
     import * as validators from "@shared/types/validators"
     import { isEqual } from "@shared/lib/format"
 
-    //:object="objectValue"
-    //:action-type="actionTypeValue"
-    //const objectValue = makeReactive(`objectValue${this.crudModel.model}`, )
     export default defineComponent({
         components: {
             FormModel,
         },
         data() {
-            console.log(`DATA  RUN`)
             return {
                 printObject: { ...this.object },
-                form: useLocalStorage(`formModelComponent${this.crudModel.model}`, false),
+                formInit: '',
                 actionTypeValue: this.actionType,
                 getComponentByModel,
                 isEqual,
@@ -100,21 +96,11 @@
                 error: ''
             }
         },
-        updated(){
-            console.log(`UPDATED - pr.name: ${this.printObject.name}, o.name: ${this.objectValue.name}`)
-
-            for (let key of Object.keys(this.objectValue)){
-                console.log(`pr.${key}: ${this.printObject[key]}, o.${key}: ${this.objectValue[key]}`)
-            }
-
-
-            console.log(`UPDATED MC actionType: ${this.actionTypeValue}`)
-            this.form = true
-            //this.resetform()
-        },
         mounted(){
-            console.log(`MOUNTED MC actionType: ${this.actionTypeValue}`)
-            console.log(`MOUNTED - pr.name: ${this.printObject.name}, o.name: ${this.objectValue.name}`)
+            if (!this.objectValue.id){
+                this.form = false
+            }
+            else this.form = useLocalStorage(`formModelComponent${this.crudModel.model}`, false)
         },
         inject: [
             '$profile',
@@ -148,23 +134,18 @@
                 }
                 return false
             },
-            resetform(){
-                if (!this.$profile.profile){
-                    this.form = false
+            form: {
+                get(){
+                    return this.formInit
+                },
+                set(value: boolean){
+                    this.formInit = value
                 }
-            },
-            /*modelComponentProps(){
-                return {
-                    object: { ... this.objectValue },
-                    actionType: this.actionTypeValue
-                }
-            }*/
+            }
         },
         watch: {
             object: {
                 handler(newPropValue){
-
-                    console.log(`OBJECT WATCH HANDLER LAUNCH: ${newPropValue.id}`)
                     if (newPropValue){
 
                         this.objectValue = { ...newPropValue }
@@ -234,16 +215,12 @@
 
                 if (responseStatus != 200){
                     this.error = response.data?.detail || response.statusText
-                    //this.objectValue = this.api.model.defaultObject
                 }
                 else{
                     this.objectValue = { ...response.data }
                     this.printObject = { ...response.data }
                     this.error = ""
                 }
-
-                //console.log(`EDIT.status: ${responseStatus}, object.id: ${response.data.id}`)
-
             },
             async DELETE(id: Id){
                 const response = await this.api.delete(id)

@@ -32,7 +32,7 @@
             </button>
         </div>
         <div
-            v-if="$lead.lead"
+            v-if="cc"
         >
             <div
                 v-if="actionType == 'create'"

@@ -101,13 +101,13 @@ const UnitPanel = defineComponent({
     props: {
         object: {
             type: Object as PropType<UnitView>,
-            required: false,
+            //required: false,
             default: () => unitApi.defaultObject
         },
         crudModel: {
             type: Object as PropType<CrudModel>,
             default: () => (new UnitApi()),
-            required: false
+            //required: false
         },
     }, 
     methods: {
