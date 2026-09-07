@@ -2,11 +2,11 @@ import axios from "axios"
 import type { AxiosResponse } from 'axios'
 
 import { getAuthHeader } from "@shared/api/schema/api"
+import { useStore } from "@shared/lib/reactive"
 import { empty } from "@shared/model/constants"
 import storage from "@shared/model/store"
 import type { AuthorizationHeader, WSRequest } from "@shared/types/interfaces"
 import type { Response } from "@shared/types/types"
-
 
 async function refreshToken(){
 
@@ -81,6 +81,10 @@ async function request(
             headers, 
             auth
         })
+    }
+
+    if (response.status === 403 && response.data?.detail == "Device not found"){
+        storage.getState().DELETE_TOKEN()
     }
     return response
 }

@@ -102,6 +102,11 @@
             }
             else this.form = useLocalStorage(`formModelComponent${this.crudModel.model}`, false)
         },
+        updated(){
+            if (this.objectValue.id != undefined){
+                this.form = true
+            }
+        },
         inject: [
             '$profile',
             '$user'
