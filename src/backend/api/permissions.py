@@ -5,8 +5,7 @@ from rest_framework.permissions import BasePermission, IsAuthenticated
 from api import models
 
 def get_profile_id(request: request.Request):
-
-    return models.ATP.objects.get(user_id=request.user.id).id
+    return models.ATP.objects.get(user__id=request.user.id).id
 
 class IsOwner(BasePermission):
 

@@ -22,6 +22,8 @@ class ATPMixin:
     
 class ATPMixinE(ATPMixin):
 
+    queryset = models.ATP.objects.all()
+
     def get_object(self):
         try:
             return models.ATP.objects.get(user=self.request.user)
@@ -112,6 +114,11 @@ class UnitsForAcceptingLead(generics.ListAPIView):
     
 
 class UncoveredLeads(generics.ListAPIView):
+
+    authentication_classes = [BearerAuthentication]
+    permission_classes = [
+        permissions.IsAuthenticated
+    ]
 
     pagination_class = pagination.Pagination
     serializer_class = serializers.LeadSerializer

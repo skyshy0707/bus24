@@ -45,7 +45,7 @@ class LeadSerializer(serializers.ModelSerializer):
 
 class LeadCreateSerializer(LeadSerializer):
 
-    atp = serializers.HiddenField(default=ATPSerializer(fields.ATPIdDefault()))
+    atp = serializers.HiddenField(default=fields.ATPIdDefault())
 
     id = serializers.IntegerField(read_only=True)
     atp_id = serializers.IntegerField(read_only=True)
