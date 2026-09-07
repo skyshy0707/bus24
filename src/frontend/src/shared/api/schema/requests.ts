@@ -85,6 +85,7 @@ async function request(
 
     if (response.status === 403 && response.data?.detail == "Device not found"){
         storage.getState().DELETE_TOKEN()
+        window.location.href = "/"
     }
     return response
 }
