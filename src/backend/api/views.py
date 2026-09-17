@@ -277,7 +277,11 @@ class ModifyLeadUnitSet(LeadCrudMixin, generics.UpdateAPIView):
         
         units = qs_params.units
         change_type = qs_params.change_type
-        unit_queryset = models.Unit.objects.filter(id__in=units, atp__id=atp_id)
+
+        unit_queryset = models.Unit.objects\
+            .filter(id__in=units, atp__id=atp_id)\
+            .select_for_update(skip_locked=True)
+        
         lead = self.get_object()
 
         if change_type == "add":
