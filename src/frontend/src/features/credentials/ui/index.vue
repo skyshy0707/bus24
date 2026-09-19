@@ -238,6 +238,7 @@ export default defineComponent({
             }
 
             else {
+                console.log(`response 401: ${Object.keys(response.data)}`)
                 this.error = response.data.details
             }
         },
