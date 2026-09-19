@@ -9,6 +9,10 @@
 
 <style lang="css">
 
+:root{
+    --font-bus24: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+}
+
 main{
     margin-top: 50px;
     min-height: calc(100vh - 50px);
@@ -23,6 +27,14 @@ input, textarea, h4 {
     width: 256px;
     padding-left: 1rem
 }
+
+.error-bus{
+    background-color: rgba(255, 0, 0, 0.6);
+    border-radius: 10px;
+    margin: 4px;
+    font: var(--font-bus24);
+}
+
 .scroll-content::-webkit-scrollbar{
     width: 6px;
 }

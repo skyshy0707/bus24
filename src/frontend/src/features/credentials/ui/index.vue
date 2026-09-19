@@ -109,6 +109,7 @@
             </button>
             <p 
                 v-if="error"
+                class="model-field error-bus"
             >
                 {{ error }}
             </p>
@@ -134,7 +135,7 @@
     .auth-panel > button {
         margin: 0.2em 0.5em;
         background: wheat;
-        font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+        font-family: var(--font-bus24);
         border-radius: 10px
     }
 
@@ -237,7 +238,7 @@ export default defineComponent({
             }
 
             else {
-                this.error = response.data.message
+                this.error = response.data.details
             }
         },
         async logout(){

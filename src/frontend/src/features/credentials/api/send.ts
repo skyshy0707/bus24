@@ -1,6 +1,12 @@
 import { request } from "@shared/api/schema/requests"
 import store from "@shared/model/store"
 
+
+import leadStore from "entities/lead/model/store"
+import profileStore from "entities/profile/model/store"
+import unitStore from "entities/unit/model/store"
+
+
 import type { 
     Signin, 
     Signup 
@@ -43,6 +49,9 @@ async function logout(){
     })
     if (response.status === 204){
         store.getState().DELETE_TOKEN()
+        leadStore.getState().SET_LEAD(null)
+        profileStore.getState().SET_USER_PROFILE(null)
+        unitStore.getState().SET_UNIT(null)
         return true
     }
     return false
