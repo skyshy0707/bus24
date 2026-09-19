@@ -223,7 +223,8 @@ export default defineComponent({
                 this.actionTypeValue = ""
                 this.$router.push("/")
             }
-            this.error = response.data.message || response.statusText
+            console.log(`response 401: ${Object.keys(response.data)}`)
+            this.error = response.data.details || response.statusText
         },
 
         async signup(event: Event){
@@ -238,7 +239,6 @@ export default defineComponent({
             }
 
             else {
-                console.log(`response 401: ${Object.keys(response.data)}`)
                 this.error = response.data.details
             }
         },

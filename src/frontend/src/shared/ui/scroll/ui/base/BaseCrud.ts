@@ -38,13 +38,11 @@ export const BaseCrud = defineComponent({
             )
         },
         view(id: Id){
-            console.log(`which view: ${this.model} and id: ${id}`)
             this.model ? 
                 this.$emit(`get${capitalize(this.model)}`, id) : 
                     this.$emit(`get`, id)
         },
         delete_(id: Id){
-            console.log(`crud takes parameter of delete operation: ${id}: ${typeof id}`)
             this.model ? 
                 this.$emit(`delete${capitalize(this.model)}`) : 
                     this.$emit('delete', id)
