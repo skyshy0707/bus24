@@ -223,7 +223,6 @@ export default defineComponent({
                 this.actionTypeValue = ""
                 this.$router.push("/")
             }
-            console.log(`response 401: ${Object.keys(response.data)}`)
             this.error = response.data.detail || response.statusText
         },
 
