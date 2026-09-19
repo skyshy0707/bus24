@@ -224,7 +224,7 @@ export default defineComponent({
                 this.$router.push("/")
             }
             console.log(`response 401: ${Object.keys(response.data)}`)
-            this.error = response.data.details || response.statusText
+            this.error = response.data.detail || response.statusText
         },
 
         async signup(event: Event){
@@ -239,7 +239,7 @@ export default defineComponent({
             }
 
             else {
-                this.error = response.data.details
+                this.error = response.data.detail
             }
         },
         async logout(){
