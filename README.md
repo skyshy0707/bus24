@@ -4,7 +4,7 @@
 
 Backend: Django Rest Framework, PostgreSQL, REST API, Websocket, Nginx; Production: Railways
 
-Frontend: HTML5, CSS3, Vue.js 3, Typescript, FSD, Production: Cloudeflare
+Frontend: HTML5, CSS3, Vue.js 3, Typescript, FSD, Production: Cloudflare
 
 
 > [!WARNING]
