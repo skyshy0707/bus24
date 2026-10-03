@@ -77,9 +77,11 @@
     import { Crud } from "@shared/model/crud"
     import type { CrudModel } from "@shared/types/interfaces"
     import { FormModel } from "@shared/ui/themes"
-    import type { Id, Item } from "@shared/types/types"
+    import type { Id, Item, Response } from "@shared/types/types"
     import * as validators from "@shared/types/validators"
     import { isEqual } from "@shared/lib/format"
+
+    import { type CrudParams } from "entities/model_component/types"
 
     export default defineComponent({
         components: {
@@ -130,7 +132,6 @@
                 return new Crud(this.crudModel)
             },
             addNew(){
-                console.log(`token: ${this.$user.token}, profile: ${this.$profile.profile}`)
                 if (this.$user.token && !this.$profile.profile && this.crudModel.model == 'profile'){
                     return true
                 }
@@ -152,12 +153,8 @@
             object: {
                 handler(newPropValue){
                     if (newPropValue){
-
                         this.objectValue = { ...newPropValue }
                         this.printObject = { ...newPropValue }
-
-                        console.log(`original actionTypeValue: ${this.actionTypeValue}`)
-
                         if (!isEqual(this.objectValue, this.api.model.defaultObject) && this.actionTypeValue == 'create'){
                             this.actionTypeValue = 'edit'
                         }
@@ -167,14 +164,7 @@
             },
             objectValue: {
                 handler(updated){
-                    console.log(`objectValue.updated: ${updated}`)
-                    console.log(`CHECK CHANGES IN BOTH - OBJECT VALUE AND PRINT OBJECT`)
-                    for (let key of Object.keys(this.objectValue)){
-                        console.log(`pr.${key}: ${this.printObject[key]}, o.${key}: ${this.objectValue[key]}`)
-                    }
-
                     this.objectValue = updated
-                    
                     this.$emit('update:object', { ...updated})
                 },
                 deep: true
@@ -190,16 +180,9 @@
         },
         methods: {
             isOwn(){
-                console.log(`isOwn: ${this.objectValue.id}. ${this.$profile.profile?.id}`)
                 if (this.api.model.model == 'profile'){
                     return this.objectValue.id == this.$profile.profile?.id
                 }
-                console.log(`
-                    isOwn NON PROFILE object.atp_id: ${this.objectValue.atp}. 
-                    atp_id ${this.$profile.profile?.id}
-                    obj.atp_id ${this.objectValue.atp_id}
-                    objectValue: ${Object.keys(this.objectValue)}
-                `)
                 return this.objectValue.atp_id == this.$profile.profile?.id || this.objectValue.atp == this.$profile.profile?.id
             },
             switchUiModel(){
@@ -207,68 +190,94 @@
                 this.objectValue = this.api.model.defaultObject
                 this.actionTypeValue = 'create'
             },
+            async executeCrudAction(actionType: 'edit' | 'create' | 'delete', params: CrudParams) {
+                this.error = "";
+            
+                const crud = {
+                    edit: {
+                        successCode: 200,
+                        reset: (data: any) => {
+                            this.objectValue = { ...data };
+                            this.printObject = { ...data };
+                        },
+                        method: async (params: CrudParams): Promise<Response>  => {
+                            const id = params.id
+                            const formdata = params.formdata
+                            return await this.api.edit(formdata, id)
+                        }
+                    },
+                    create: {
+                        successCode: 201,
+                        reset: (data: any) => {
+                            this.objectValue = { ...data };
+                            this.printObject = { ...data };
+                            this.actionTypeValue = 'edit';
+                        },
+                        method: async (params: CrudParams): Promise<Response>  => {
+                            const formdata = params.formdata
+                            return await this.api.create(formdata)
+                        }
+                    },
+                    delete: {
+                        successCode: 204,
+                        reset: () => {
+                            this.objectValue = this.api.model.defaultObject;
+                        },
+                        method: async (params: CrudParams): Promise<Response> => {
+                            const id = params.id
+                            return await this.api.delete(id)
+                        }
+                    }
+                };
+
+                try {
+                    const method = crud[actionType].method;
+
+                    const response = await method(params)
+
+                    const status = response.status || response.response_status;
+                    const currentStrategy = crud[actionType];
+
+                    if (status !== currentStrategy.successCode) {
+                        this.error = response.data?.detail || response.statusText;
+                        return response;
+                    }
+
+                    currentStrategy.reset(response.data);
+                    return response;
+
+                } 
+                catch (err: any) {
+                    this.error = err.message || "Network error";
+                }
+            },
             async EDIT(event: Event) {
                 event.preventDefault()
                 this.actionTypeValue = 'edit'
                 this.form = true
                 const formData = new FormData(event.target as HTMLFormElement)
-                const response = await this.api.edit(formData, this.objectValue.id)
 
-                console.log(`actionTypeValue after edit op: ${this.actionTypeValue}`)
-
-                const responseStatus = response.status || response.response_status
-
-                if (responseStatus != 200){
-                    this.error = response.data?.detail || response.statusText
-                }
-                else{
-                    this.objectValue = { ...response.data }
-                    this.printObject = { ...response.data }
-                    this.error = ""
-                }
+                await this.executeCrudAction(
+                    'edit', { 
+                        id: this.objectValue.id, 
+                        formdata: formData 
+                    }
+                )
             },
             async DELETE(id: Id){
-                const response = await this.api.delete(id)
-
-                const responseStatus = response.status || response.response_status
-                
-                if (responseStatus != 204){
-                    this.error = response.data?.detail || response.statusText
-                }
-                else{
-                    this.objectValue = this.api.model.defaultObject
-                    this.error = ""
-                }
+                await this.executeCrudAction('delete', { id: id })
+            
             },
             async CREATE(event: Event){
                 const formData = new FormData(event.target as HTMLFormElement)
-                const response = await this.api.create(formData)
-
-                const responseStatus = response.status || response.response_status
-
-                console.log(`response.status create:, ${responseStatus }`)
-                if (responseStatus != 201){
-                    this.error = response.data?.detail || response.statusText
-                    this.form = true
-                }
-                else{
-                    console.log(`created attrs: ${Object.keys(response.data)}`)
-                    this.objectValue = { ...response.data }
-                    this.printObject = { ...response.data }
-                    this.error = ""
-                    this.actionTypeValue = 'edit'
-                }
-                return response
+                await this.executeCrudAction('create', { formdata: formData })
             },
             async action(event: Event){
-                console.log(`actiontype: ${this.actionTypeValue}`)
                 if (this.actionTypeValue == 'edit') {
                     return await this.EDIT(event)
                 }
                 else if (this.actionTypeValue == 'create') {
-                    console.log(`case create`)
-                    const k = await this.CREATE(event)
-                    console.log(`response: ${k}, ${typeof k}`)
+                    await this.CREATE(event)
                 }
             }
         }

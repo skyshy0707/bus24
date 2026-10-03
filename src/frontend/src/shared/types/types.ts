@@ -11,7 +11,11 @@ type Id = number | string
 
 interface Reactable<T> { value: T }
 
-type Response = AxiosResponse<any>
+interface WSResponseExt {
+  response_status?: number
+}
+
+type Response = AxiosResponse<any> & WSResponseExt
 
 type Item = {
     id: Id,
