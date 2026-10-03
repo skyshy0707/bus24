@@ -283,11 +283,6 @@
             selectedValue: {
                 get(){
                     var selected = this.object[this.select?.fieldName]
-
-                    if (selected == undefined){
-                        const key = this.select.fieldName.split('_')[0]
-                        selected = this.object[key]
-                    }
                     if(typeof selected == 'object' && !selected.hasOwnProperty('length')){
                         return selected.id
                     }

@@ -10,7 +10,7 @@ const BusLabels: Record<string, string> = {
 }
 
 const SelectBus: Select = {
-    fieldName: "bus_id",
+    fieldName: "bus",
     selectType: "single"
 }
 
