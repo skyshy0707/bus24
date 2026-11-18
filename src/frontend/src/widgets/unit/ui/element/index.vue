@@ -18,6 +18,7 @@
             :crudModel="unitApi"
             v-model:objectValue="objectValue"
             v-model:actionTypeValue="actionTypeValue"
+            @update:object="($event) => { $unit.SET_UNIT($event) }"
         >
         </ModelComponent>
 
@@ -46,6 +47,7 @@ import { defineComponent, type PropType, reactive } from 'vue'
 
 import type { CrudModel } from "@shared/types/interfaces"
 import type { Id } from "@shared/types/types"
+import { isEqual } from "@shared/lib/format"
 
 import { UnitApi } from "entities/unit/api/unit"
 import type { UnitState, UnitView } from 'entities/unit/types'
@@ -89,25 +91,25 @@ const UnitPanel = defineComponent({
     },
     watch: {
         $unit: {
-            handler(newValue){
-                if (newValue){
+            handler(newValue: UnitState | null){
+                if (newValue?.unit && !isEqual(newValue.unit as UnitView, this.objectValue)){
                     this.objectValue = newValue.unit
                 }
+
+                
             },
             deep: true,
             immediate: true
-        }
+        },
     },
     props: {
         object: {
             type: Object as PropType<UnitView>,
-            //required: false,
             default: () => unitApi.defaultObject
         },
         crudModel: {
             type: Object as PropType<CrudModel>,
             default: () => (new UnitApi()),
-            //required: false
         },
     }, 
     methods: {

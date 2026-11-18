@@ -291,11 +291,14 @@
                 set(newValue){
                     const fieldName = (this.select as Select).fieldName
                     if (typeof this.object[fieldName] == 'object' && !this.object[fieldName].hasOwnProperty('length')){
+
+                        console.log(`Previous id: ${this.object[fieldName].id}`)
                         this.object[fieldName] = { 
                             ...this.object[fieldName],
                             id: newValue 
                         }
-                        return
+                        console.log(`New value for id: ${this.object[fieldName].id}`)
+                        //return
                     }
                     this.object[fieldName] = newValue
                 }

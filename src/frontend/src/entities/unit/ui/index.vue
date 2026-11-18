@@ -140,7 +140,6 @@
         components: {
             Scroll
         },
-
         props: {
 
             actionType: {

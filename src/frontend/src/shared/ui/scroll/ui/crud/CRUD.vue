@@ -31,7 +31,7 @@
         </button>
         <button
             class="btn"
-            v-if="item.atp_id == $profile?.profile?.id || item.atp == $profile?.profile?.id"
+            v-if="isOwn(item)"
             type="button"
             @click="() => delete_((item as Item).id)"
         >
@@ -89,10 +89,14 @@ const CRUD = defineComponent({
         },
     },
     methods: {
-        isLink(link: any){
+        isLink(link: any): boolean{
             return typeof link == 'string' ? link.includes('://') : false
         },
-        standardtize(value: string | number){
+        isOwn(item: Item): boolean{
+            console.log(`Item Own: ${item.atp_id}|${item.atp}, profile: ${this.$profile?.profile?.id}`)
+            return item.atp_id == this.$profile?.profile?.id || item.atp == this.$profile?.profile?.id
+        },
+        standardtize(value: string | number): string | number{
             const maxR = 4
             const r = typeof value == 'number' ? String(value).length : value.length
             
@@ -105,7 +109,7 @@ const CRUD = defineComponent({
             }
             return value
         },
-        moveToChangeSet(id: Id){
+        moveToChangeSet(id: Id): void{
             const reduced = this.getReducedSet(id, this.items)
             const changeSet = [...this.copySet, id]
             this.copySet = changeSet

@@ -5,6 +5,7 @@
         :object="objectValue"
         :crudModel="leadApi"
         v-model="objectValue"
+        @update:object="($event) => { $lead.SET_LEAD($event) }"
     >
         <div>
             <p class="model-field">Автобусы на линии:</p>
@@ -53,7 +54,7 @@
 
     import type { CrudModel } from "@shared/types/interfaces"
     import type { Id } from "@shared/types/types"
-    
+    import { isEqual } from "@shared/lib/format"
     
     import { LeadApi } from 'entities/lead/api/lead'
     import type { LeadState, LeadView } from 'entities/lead/types';
@@ -145,8 +146,8 @@
         },
         watch: {
             $lead: {
-                handler(newValue){
-                    if (newValue){
+                handler(newValue: LeadState){
+                    if (newValue?.lead && !isEqual(newValue.lead as LeadView, this.objectValue)){
                         this.objectValue = newValue.lead
                     }
                 },

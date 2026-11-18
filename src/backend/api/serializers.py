@@ -38,6 +38,8 @@ class BusSerializer(serializers.ModelSerializer):
 
 class LeadSerializer(serializers.ModelSerializer):
 
+    atp_id = serializers.IntegerField(read_only=True)
+
     class Meta:
         model = models.Lead
         fields = "__all__"
@@ -79,6 +81,7 @@ class LeadUpdatePropsSerializer(LeadSerializer):
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
+        self.Meta.fields = None
         self.Meta.exclude = ("atp",)
 
 

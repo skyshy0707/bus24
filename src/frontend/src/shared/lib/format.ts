@@ -1,6 +1,14 @@
 const capitalize = (str: string) => str.charAt(0).toUpperCase() + str.slice(1)
 
 const isEqual = (objA: object, objB: object) => {
+    
+    if (objA == null && objB == null){
+        return true
+    }
+    if (([objA, objB] as Array<object | null>).includes(null)){
+        return false
+    }
+
 
     if (Object.keys(objA).length != Object.keys(objB).length){
         return false

@@ -2,6 +2,8 @@
 
 Основная идея - расшаривание любого маршрута (идеи) как url из информационной системы `wikiroutes` между пользователями, зарегистрированных в проекте как `пассажирские АТП`.
 
+![alt text](https://github.com/skyshy0707/bus24/blob/master/?raw=true)
+
 Backend: Django Rest Framework, PostgreSQL, REST API, Websocket, Nginx; Production: Railways
 
 Frontend: HTML5, CSS3, Vue.js 3, Typescript, FSD, Production: Cloudflare
@@ -9,8 +11,8 @@ Frontend: HTML5, CSS3, Vue.js 3, Typescript, FSD, Production: Cloudflare
 
 > [!WARNING]
 > ### Доступ на производственную версию[https://bus24.alexeidotpy.workers.dev/] возможен только с VPN, поскольку хост сервера `railway` недоступен без него.
-
-
+>
+> На данный момент сервер не работает - закончился лимит обслуживания
 
 Запуск как Backend так и Frontend:
 

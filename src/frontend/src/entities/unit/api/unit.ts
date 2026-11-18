@@ -3,7 +3,7 @@ import type { CrudModel } from "@shared/types/interfaces"
 import type { Id } from "@shared/types/types"
 
 import type { UnitView, UnitEdit, UnitCreate } from "entities/unit/types/index"
-
+import unitStore from "entities/unit/model/store"
 
 class UnitApi implements CrudModel{
 
@@ -43,6 +43,7 @@ class UnitApi implements CrudModel{
 
     async edit(data: FormData, id: Id, ){
         const validated = Object.fromEntries(data.entries()) as Partial<UnitEdit>
+        console.log(`COLOR: ${validated.color}`)
         const response = await request({
             url: `unit/${id}/edit`,
             data: validated,

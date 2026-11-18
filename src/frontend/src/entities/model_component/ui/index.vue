@@ -154,7 +154,6 @@
                 handler(newPropValue){
                     if (newPropValue){
                         this.objectValue = { ...newPropValue }
-                        this.printObject = { ...newPropValue }
                         if (!isEqual(this.objectValue, this.api.model.defaultObject) && this.actionTypeValue == 'create'){
                             this.actionTypeValue = 'edit'
                         }
@@ -256,7 +255,6 @@
                 this.actionTypeValue = 'edit'
                 this.form = true
                 const formData = new FormData(event.target as HTMLFormElement)
-
                 await this.executeCrudAction(
                     'edit', { 
                         id: this.objectValue.id, 

@@ -208,7 +208,15 @@ class BusUnitCreate(BusUnitMixin, generics.CreateAPIView):
 class BusUnitEdit(BusUnitOwnMixin, generics.UpdateAPIView):
 
     serializer_class = serializers.UnitUpdateSerializer
-        
+
+
+    def patch(self, request: request.Request, *args, **kwargs):
+        print(request.data)
+        d = self.serializer_class(data=request.data)
+        d.is_valid()
+        print("s data:", d.data)
+
+        return super().patch(request, *args, **kwargs)
  
 class BusUnitDelete(BusUnitOwnMixin, generics.DestroyAPIView):
     pass
