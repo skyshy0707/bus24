@@ -93,7 +93,6 @@ const CRUD = defineComponent({
             return typeof link == 'string' ? link.includes('://') : false
         },
         isOwn(item: Item): boolean{
-            console.log(`Item Own: ${item.atp_id}|${item.atp}, profile: ${this.$profile?.profile?.id}`)
             return item.atp_id == this.$profile?.profile?.id || item.atp == this.$profile?.profile?.id
         },
         standardtize(value: string | number): string | number{
