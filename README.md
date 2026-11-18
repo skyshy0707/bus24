@@ -2,7 +2,7 @@
 
 Основная идея - расшаривание любого маршрута (идеи) как url из информационной системы `wikiroutes` между пользователями, зарегистрированных в проекте как `пассажирские АТП`.
 
-![alt text](https://github.com/skyshy0707/bus24/blob/master/?raw=true)
+![alt text](https://github.com/skyshy0707/bus24/blob/master/prev.PNG?raw=true)
 
 Backend: Django Rest Framework, PostgreSQL, REST API, Websocket, Nginx; Production: Railways
 
